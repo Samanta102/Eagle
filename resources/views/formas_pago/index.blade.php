@@ -8,7 +8,7 @@
         :root {
             --primary-color: #4361ee;
             --secondary-color: #3f37c9;
-            --danger-color: #f72585;
+            --danger-color: #DC2525;
             --light-color: #f8f9fa;
             --dark-color: #212529;
             --border-radius: 4px;

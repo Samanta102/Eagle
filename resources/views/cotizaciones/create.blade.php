@@ -2,114 +2,129 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Cotización</title>
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --danger-color: #DC2525;
+            --success-color: #4CAF50;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --focus-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
+        }
+        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--dark-color);
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
             max-width: 800px;
             margin: 0 auto;
+            background: white;
             padding: 30px;
-            background-color: #f5f7fa;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
         }
-
+        
         h1 {
-            color: #2c3e50;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
+            padding-bottom: 10px;
             text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #eaecef;
         }
-
-        form {
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
         }
-
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            opacity: 0.9;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
-            color: #2c3e50;
+            font-weight: 500;
+            color: var(--dark-color);
         }
-
+        
         select, input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
+            padding: 10px 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: var(--border-radius);
             font-size: 16px;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
             box-sizing: border-box;
         }
-
+        
         select:focus, input:focus {
-            border-color: #3498db;
+            border-color: var(--primary-color);
             outline: none;
-            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            box-shadow: var(--focus-shadow);
         }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        button {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-            margin-right: 15px;
-        }
-
-        button:hover {
-            background-color: #2980b9;
-        }
-
-        a {
-            display: inline-block;
-            padding: 12px 20px;
-            background-color: #e74c3c;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: 600;
-            transition: background-color 0.3s;
-        }
-
-        a:hover {
-            background-color: #c0392b;
-        }
-
+        
         .button-group {
             margin-top: 30px;
-            text-align: center;
+            display: flex;
+            gap: 15px;
         }
-
+        
         @media (max-width: 600px) {
-            body {
-                padding: 15px;
-            }
-            
-            form {
+            .container {
                 padding: 20px;
             }
             
             .button-group {
-                display: flex;
                 flex-direction: column;
-                gap: 10px;
             }
             
-            button, a {
+            .btn {
                 width: 100%;
                 text-align: center;
             }
@@ -117,60 +132,57 @@
     </style>
 </head>
 <body>
-    <h1>Nueva Cotización</h1>
+    <div class="container">
+        <h1>Nueva Cotización</h1>
 
-    <form method="POST" action="{{ route('cotizaciones.store') }}">
-        @csrf
+        <form method="POST" action="{{ route('cotizaciones.store') }}">
+            @csrf
 
-        <div class="form-group">
-            <label>Diagnóstico:</label>
-            <select name="id_diagnostico" required>
-                <option value="">Seleccione...</option>
-                @foreach ($diagnosticos as $d)
-                    <option value="{{ $d->id_diagnostico }}">{{ $d->descripcion }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="id_diagnostico">Diagnóstico:</label>
+                <select id="id_diagnostico" name="id_diagnostico" required>
+                    <option value="">Seleccione...</option>
+                    @foreach ($diagnosticos as $d)
+                        <option value="{{ $d->id_diagnostico }}">{{ $d->descripcion }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label>Usuario:</label>
-            <select name="id_usuario" required>
-                <option value="">Seleccione...</option>
-                @foreach ($usuarios as $u)
-                    <option value="{{ $u->id_usuario }}">{{ $u->nombre_usuario }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="id_usuario">Usuario:</label>
+                <select id="id_usuario" name="id_usuario" required>
+                    <option value="">Seleccione...</option>
+                    @foreach ($usuarios as $u)
+                        <option value="{{ $u->id_usuario }}">{{ $u->nombre_usuario }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label>Forma de Pago:</label>
-            <select name="id_forma_pago" required>
-                <option value="">Seleccione...</option>
-                @foreach ($formasPago as $fp)
-                    <option value="{{ $fp->id_forma_pago }}">{{ $fp->nombre }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="id_forma_pago">Forma de Pago:</label>
+                <select id="id_forma_pago" name="id_forma_pago" required>
+                    <option value="">Seleccione...</option>
+                    @foreach ($formasPago as $fp)
+                        <option value="{{ $fp->id_forma_pago }}">{{ $fp->nombre }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-        <div class="form-group">
-            <label>Nombre Forma de Pago:</label>
-            <input type="text" name="forma_pago" required>
-        </div>
+            <div class="form-group">
+                <label for="total">Total:</label>
+                <input type="number" step="0.01" id="total" name="total" required>
+            </div>
 
-        <div class="form-group">
-            <label>Total:</label>
-            <input type="number" step="0.01" name="total" required>
-        </div>
+            <div class="form-group">
+                <label for="fecha_emision">Fecha Emisión:</label>
+                <input type="date" id="fecha_emision" name="fecha_emision" required>
+            </div>
 
-        <div class="form-group">
-            <label>Fecha Emisión:</label>
-            <input type="date" name="fecha_emision" required>
-        </div>
-
-        <div class="button-group">
-            <button type="submit">Guardar</button>
-            <a href="{{ route('cotizaciones.index') }}">Cancelar</a>
-        </div>
-    </form>
+            <div class="button-group">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+                <a href="{{ route('cotizaciones.index') }}" class="btn btn-danger">Cancelar</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

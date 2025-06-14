@@ -2,158 +2,184 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listado de Cotizaciones</title>
     <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --danger-color: #DC2525;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+            --border-radius: 4px;
+            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
+            color: var(--dark-color);
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 20px;
-            background-color: #f9f9f9;
+            background: white;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
         }
-
+        
         h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
-            border-bottom: 1px solid #eee;
         }
-
-        a {
-            color: #3498db;
+        
+        .btn {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: var(--border-radius);
             text-decoration: none;
-            transition: color 0.3s;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
         }
-
-        a:hover {
-            color: #2980b9;
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
         }
-
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            opacity: 0.9;
+        }
+        
+        .btn-edit {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-edit:hover {
+            background-color: #3e8e41;
+        }
+        
+        .alert {
+            padding: 12px 16px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 25px 0;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            background-color: white;
+            margin-top: 20px;
+            box-shadow: var(--box-shadow);
         }
-
+        
         th, td {
             padding: 12px 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #e0e0e0;
         }
-
+        
         th {
-            background-color: #3498db;
+            background-color: var(--primary-color);
             color: white;
-            font-weight: bold;
+            font-weight: 500;
         }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
-
+        
         tr:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: var(--light-color);
         }
-
-        tr:nth-child(even):hover {
-            background-color: #e9e9e9;
+        
+        tr:hover {
+            background-color: #e9ecef;
         }
-
-        button {
-            background-color: #e74c3c;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #c0392b;
-        }
-
-        .success-message {
-            background-color: #2ecc71;
-            color: white;
-            padding: 10px;
-            margin: 20px 0;
-            border-radius: 4px;
-            text-align: center;
-        }
-
-        .create-link {
-            display: inline-block;
-            background-color: #2ecc71;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-
-        .create-link:hover {
-            background-color: #27ae60;
-            color: white;
-        }
-
-        .action-cell {
+        
+        .actions-cell {
             display: flex;
-            gap: 10px;
-            align-items: center;
+            gap: 8px;
         }
-
-        form {
-            margin: 0;
+        
+        .empty-state {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-style: italic;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
         }
     </style>
 </head>
 <body>
-    <h1>Listado de Cotizaciones</h1>
+    <div class="container">
+        <h1>Listado de Cotizaciones</h1>
 
-    <a href="{{ route('cotizaciones.create') }}" class="create-link">Crear nueva cotización</a>
+        <a href="{{ route('cotizaciones.create') }}" class="btn btn-primary">Crear nueva cotización</a>
 
-    @if (session('success'))
-        <div class="success-message">{{ session('success') }}</div>
-    @endif
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @endif
 
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Diagnóstico</th>
-                <th>Usuario</th>
-                <th>Forma de Pago</th>
-                <th>Total</th>
-                <th>Fecha Emisión</th>
-                <th>Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($cotizaciones as $cotizacion)
-                <tr>
-                    <td>{{ $cotizacion->id_cotizacion }}</td>
-                    <td>{{ $cotizacion->diagnostico->descripcion ?? 'N/A' }}</td>
-                    <td>{{ $cotizacion->usuario->nombre_usuario ?? 'N/A' }}</td>
-                    <td>{{ $cotizacion->formaPago->nombre ?? $cotizacion->forma_pago }}</td>
-                    <td>{{ $cotizacion->total }}</td>
-                    <td>{{ $cotizacion->fecha_emision }}</td>
-                    <td class="action-cell">
-                        <a href="{{ route('cotizaciones.edit', $cotizacion->id_cotizacion) }}">Editar</a>
-                        <form action="{{ route('cotizaciones.destroy', $cotizacion->id_cotizacion) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" onclick="return confirm('¿Seguro que deseas eliminar esta cotización?')">Eliminar</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+        @if($cotizaciones->isEmpty())
+            <div class="empty-state">No hay cotizaciones registradas</div>
+        @else
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Diagnóstico</th>
+                        <th>Usuario</th>
+                        <th>Forma de Pago</th>
+                        <th>Total</th>
+                        <th>Fecha Emisión</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($cotizaciones as $cotizacion)
+                        <tr>
+                            <td>{{ $cotizacion->id_cotizacion }}</td>
+                            <td>{{ $cotizacion->diagnostico->descripcion ?? 'N/A' }}</td>
+                            <td>{{ $cotizacion->usuario->nombre_usuario ?? 'N/A' }}</td>
+                            <td>{{ $cotizacion->formaPago->nombre ?? $cotizacion->forma_pago }}</td>
+                            <td>{{ $cotizacion->total }}</td>
+                            <td>{{ $cotizacion->fecha_emision }}</td>
+                            <td class="actions-cell">
+                                <a href="{{ route('cotizaciones.edit', $cotizacion->id_cotizacion) }}" class="btn btn-edit">Editar</a>
+                                <form action="{{ route('cotizaciones.destroy', $cotizacion->id_cotizacion) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta cotización?')">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @endif
+    </div>
 </body>
 </html>
