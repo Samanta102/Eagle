@@ -9,6 +9,9 @@ class Diagnostico extends Model
     protected $table = 'diagnosticos';
     protected $primaryKey = 'id_diagnostico';
     public $timestamps = false;
+    
+    protected $fillable = ['id_cita', 'descripcion', 'costo_total'];
+
 
     public function cita()
     {
