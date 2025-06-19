@@ -6,180 +6,311 @@
     <title>Listado de Cotizaciones</title>
     <style>
         :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --danger-color: #DC2525;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --border-radius: 4px;
-            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #2c3e50;
+            --danger-color: #e74c3c;
+            --danger-dark: #c0392b;
+            --warning-color: #f39c12;
+            --warning-dark: #d35400;
+            --success-color: #2ecc71;
+            --success-dark: #27ae60;
+            --light-gray: #f5f5f5;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --white: #ffffff;
         }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #f5f7fa;
+
+        * {
+            box-sizing: border-box;
             margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
         }
-        
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
         h1 {
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin: 0;
         }
-        
+
         .btn {
-            display: inline-block;
-            padding: 8px 16px;
-            border-radius: var(--border-radius);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
             text-decoration: none;
             font-weight: 500;
             transition: all 0.3s ease;
-            border: none;
             cursor: pointer;
-            font-size: 14px;
+            border: none;
+            font-size: 15px;
         }
-        
+
         .btn-primary {
             background-color: var(--primary-color);
-            color: white;
+            color: var(--white);
         }
-        
+
         .btn-primary:hover {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-danger {
             background-color: var(--danger-color);
-            color: white;
+            color: var(--white);
         }
-        
+
         .btn-danger:hover {
-            opacity: 0.9;
+            background-color: var(--danger-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .btn-edit {
-            background-color: #4CAF50;
-            color: white;
+
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: var(--white);
         }
-        
-        .btn-edit:hover {
-            background-color: #3e8e41;
+
+        .btn-warning:hover {
+            background-color: var(--warning-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
-        
-        .alert {
-            padding: 12px 16px;
-            border-radius: var(--border-radius);
-            margin-bottom: 20px;
+
+        .table-container {
+            overflow-x: auto;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
-        
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        
+
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
-            box-shadow: var(--box-shadow);
+            font-size: 0.95em;
+            min-width: 600px;
         }
-        
-        th, td {
-            padding: 12px 15px;
+
+        thead tr {
+            background-color: var(--secondary-color);
+            color: var(--white);
             text-align: left;
-            border-bottom: 1px solid #e0e0e0;
         }
-        
+
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+        }
+
         th {
-            background-color: var(--primary-color);
-            color: white;
-            font-weight: 500;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
         }
-        
-        tr:nth-child(even) {
-            background-color: var(--light-color);
+
+        tbody tr {
+            border-bottom: 1px solid var(--medium-gray);
+            transition: all 0.2s ease;
         }
-        
-        tr:hover {
-            background-color: #e9ecef;
+
+        tbody tr:nth-of-type(even) {
+            background-color: rgba(245, 245, 245, 0.5);
         }
-        
-        .actions-cell {
-            display: flex;
-            gap: 8px;
+
+        tbody tr:last-of-type {
+            border-bottom: 2px solid var(--secondary-color);
         }
-        
-        .empty-state {
+
+        tbody tr:hover {
+            background-color: #f0f8ff;
+            transform: scale(1.005);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .amount {
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
             text-align: center;
-            padding: 30px;
-            color: #6c757d;
-            font-style: italic;
-            background-color: var(--light-color);
-            border-radius: var(--border-radius);
+            min-width: 80px;
+        }
+
+        .status-pending {
+            background-color: rgba(243, 156, 18, 0.2);
+            color: var(--warning-dark);
+        }
+
+        .status-approved {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success-dark);
+        }
+
+        .status-rejected {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger-dark);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .date {
+            white-space: nowrap;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            th, td {
+                padding: 12px 15px;
+            }
+            
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px 12px;
+                font-size: 0.85em;
+            }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
+            
+            .actions {
+                flex-direction: column;
+                gap: 5px;
+            }
         }
     </style>
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Listado de Cotizaciones</h1>
+        <div class="header">
+            <h1>Listado de Cotizaciones</h1>
+            <a href="{{ route('cotizaciones.create') }}" class="btn btn-primary">
+                <i class="fas fa-plus-circle"></i> Nueva Cotización
+            </a>
+        </div>
 
-        <a href="{{ route('cotizaciones.create') }}" class="btn btn-primary">Crear nueva cotización</a>
-
-        @if (session('success'))
-            <div class="alert alert-success">{{ session('success') }}</div>
-        @endif
-
-        @if($cotizaciones->isEmpty())
-            <div class="empty-state">No hay cotizaciones registradas</div>
-        @else
+        <div class="table-container">
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Diagnóstico</th>
                         <th>Usuario</th>
+                        <th>Diagnóstico</th>
                         <th>Forma de Pago</th>
                         <th>Total</th>
-                        <th>Fecha Emisión</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($cotizaciones as $cotizacion)
+                    @foreach($cotizaciones as $cotizacion)
                         <tr>
                             <td>{{ $cotizacion->id_cotizacion }}</td>
-                            <td>{{ $cotizacion->diagnostico->descripcion ?? 'N/A' }}</td>
-                            <td>{{ $cotizacion->usuario->nombre_usuario ?? 'N/A' }}</td>
-                            <td>{{ $cotizacion->formaPago->nombre ?? $cotizacion->forma_pago }}</td>
-                            <td>{{ $cotizacion->total }}</td>
-                            <td>{{ $cotizacion->fecha_emision }}</td>
-                            <td class="actions-cell">
-                                <a href="{{ route('cotizaciones.edit', $cotizacion->id_cotizacion) }}" class="btn btn-edit">Editar</a>
-                                <form action="{{ route('cotizaciones.destroy', $cotizacion->id_cotizacion) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-danger" onclick="return confirm('¿Seguro que deseas eliminar esta cotización?')">Eliminar</button>
-                                </form>
+                            <td>{{ $cotizacion->id_usuario }}</td>
+                            <td>{{ $cotizacion->id_diagnostico }}</td>
+                            <td>{{ $cotizacion->id_forma_pago }}</td>
+                            <td class="amount">${{ number_format($cotizacion->total, 2) }}</td>
+                            <td class="date">{{ date('d/m/Y', strtotime($cotizacion->fecha_emicion)) }}</td>
+                            <td>
+                                <span class="status-badge status-pending">Pendiente</span>
+                                <!-- Ejemplos de otros estados:
+                                <span class="status-badge status-approved">Aprobada</span>
+                                <span class="status-badge status-rejected">Rechazada</span>
+                                -->
+                            </td>
+                            <td>
+                                <div class="actions">
+                                    <a href="{{ route('cotizaciones.edit', $cotizacion) }}" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <form action="{{ route('cotizaciones.destroy', $cotizacion) }}" method="POST" onsubmit="return confirm('¿Estás seguro de eliminar esta cotización?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-trash-alt"></i> Eliminar
+                                        </button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        @endif
+        </div>
     </div>
+
+    <script>
+        // Confirmación antes de eliminar
+        function confirmDelete(event) {
+            if (!confirm('¿Estás seguro de eliminar esta cotización?')) {
+                event.preventDefault();
+            }
+        }
+        
+        // Asignar el evento a todos los botones de eliminar
+        document.querySelectorAll('.btn-danger').forEach(button => {
+            button.addEventListener('click', confirmDelete);
+        });
+    </script>
 </body>
 </html>

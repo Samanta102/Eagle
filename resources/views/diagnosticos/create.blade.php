@@ -6,135 +6,174 @@
     <title>Crear Diagnóstico</title>
     <style>
         :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --danger-color: #DC2525;
-            --success-color: #4CAF50;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --border-color: #e0e0e0;
-            --border-radius: 4px;
-            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            --focus-shadow: 0 0 0 2px rgba(67, 97, 238, 0.3);
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #2c3e50;
+            --danger-color: #e74c3c;
+            --danger-dark: #c0392b;
+            --warning-color: #f39c12;
+            --warning-dark: #d35400;
+            --success-color: #2ecc71;
+            --success-dark: #27ae60;
+            --light-gray: #f5f7fa;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --white: #ffffff;
         }
-        
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #f5f7fa;
-            margin: 0;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
             padding: 20px;
         }
-        
+
         .container {
             max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
         }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
+
+        .header {
             text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
         }
-        
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
+
+        h1 {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-        
-        .btn-danger {
-            background-color: var(--danger-color);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark-color);
+            font-weight: 600;
+            color: var(--secondary-color);
         }
-        
-        select, input, textarea {
+
+        .form-control {
             width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border-color);
-            border-radius: var(--border-radius);
+            padding: 12px 15px;
             font-size: 16px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
             transition: all 0.3s;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--white);
         }
-        
-        textarea {
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 12px;
+        }
+
+        textarea.form-control {
             min-height: 120px;
             resize: vertical;
         }
-        
-        select:focus, input:focus, textarea:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: var(--focus-shadow);
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
         }
-        
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
         .button-group {
-            margin-top: 30px;
             display: flex;
             gap: 15px;
+            margin-top: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
             align-items: center;
         }
-        
-        .currency-input {
-            position: relative;
-        }
-        
-        .currency-input::before {
-            content: '$';
+
+        .input-group-prepend {
             position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-weight: bold;
-            color: var(--dark-color);
-            z-index: 1;
+            left: 15px;
+            z-index: 5;
+            color: var(--dark-gray);
+            font-weight: 600;
         }
-        
-        .currency-input input {
-            padding-left: 25px;
+
+        .input-group input {
+            padding-left: 40px;
         }
-        
+
+        .alert {
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #f5c6cb;
+        }
+
+        .alert-danger ul {
+            margin: 10px 0 0 20px;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -142,50 +181,96 @@
             
             .button-group {
                 flex-direction: column;
-                align-items: stretch;
             }
             
             .btn {
                 width: 100%;
-                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 15px;
             }
         }
     </style>
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Nuevo Diagnóstico</h1>
+        <div class="header">
+            <h1><i class="fas fa-file-medical"></i> Nuevo Diagnóstico</h1>
+        </div>
+
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong><i class="fas fa-exclamation-circle"></i> Por favor corrige los siguientes errores:</strong>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
         <form action="{{ route('diagnosticos.store') }}" method="POST">
             @csrf
 
+            <!-- Cita -->
             <div class="form-group">
-                <label for="id_cita">Cita:</label>
-                <select id="id_cita" name="id_cita" required>
+                <label for="id_cita"><i class="fas fa-calendar-check"></i> Cita</label>
+                <select class="form-control" name="id_cita" required>
                     <option value="">Seleccione una cita</option>
                     @foreach ($citas as $cita)
                         <option value="{{ $cita->id_cita }}" {{ old('id_cita') == $cita->id_cita ? 'selected' : '' }}>
-                            Cita #{{ $cita->id_cita }} - {{ $cita->paciente->nombre ?? 'Sin paciente' }}
+                            Cita #{{ $cita->id_cita }} - {{ $cita->paciente->nombre ?? 'Sin paciente' }} ({{ $cita->fecha }})
                         </option>
                     @endforeach
                 </select>
             </div>
 
+            <!-- Descripción -->
             <div class="form-group">
-                <label for="descripcion">Descripción:</label>
-                <textarea id="descripcion" name="descripcion" required>{{ old('descripcion') }}</textarea>
+                <label for="descripcion"><i class="fas fa-file-alt"></i> Descripción</label>
+                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ old('descripcion') }}</textarea>
             </div>
 
-            <div class="form-group currency-input">
-                <label for="costo_total">Costo Total:</label>
-                <input type="number" step="0.01" id="costo_total" name="costo_total" value="{{ old('costo_total') }}" required>
+            <!-- Costo Total -->
+            <div class="form-group">
+                <label for="costo_total"><i class="fas fa-dollar-sign"></i> Costo Total</label>
+                <div class="input-group">
+                    <span class="input-group-prepend">$</span>
+                    <input type="number" class="form-control" id="costo_total" name="costo_total" 
+                           step="0.01" min="0" value="{{ old('costo_total') }}" required>
+                </div>
             </div>
 
             <div class="button-group">
-                <button type="submit" class="btn btn-primary">Guardar</button>
-                <a href="{{ route('diagnosticos.index') }}" class="btn btn-danger">Volver</a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Guardar Diagnóstico
+                </button>
+                <a href="{{ route('diagnosticos.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver al Listado
+                </a>
             </div>
         </form>
     </div>
+
+    <script>
+        // Validación del formulario
+        document.querySelector('form').addEventListener('submit', function(e) {
+            const costoTotal = document.querySelector('input[name="costo_total"]');
+            if (parseFloat(costoTotal.value) <= 0) {
+                alert('El costo total debe ser mayor a cero');
+                costoTotal.focus();
+                e.preventDefault();
+            }
+        });
+    </script>
 </body>
 </html>

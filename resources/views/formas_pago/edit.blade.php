@@ -5,124 +5,187 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Forma de Pago</title>
     <style>
-        /* Copia TODO el CSS de tu create.blade.php aquí */
         :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --danger-color: #f72585;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --border-radius: 4px;
-            --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            --input-border: #ced4da;
-            --input-focus: #80bdff;
+            --primary-color: #3498db;
+            --primary-dark: #2980b9;
+            --secondary-color: #2c3e50;
+            --danger-color: #e74c3c;
+            --danger-dark: #c0392b;
+            --warning-color: #f39c12;
+            --warning-dark: #d35400;
+            --success-color: #2ecc71;
+            --success-dark: #27ae60;
+            --light-gray: #f5f7fa;
+            --medium-gray: #e0e0e0;
+            --dark-gray: #333;
+            --white: #ffffff;
         }
-        
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--dark-color);
-            background-color: #f5f7fa;
-            margin: 0;
+            color: var(--dark-gray);
+            background-color: var(--light-gray);
             padding: 20px;
         }
-        
+
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background: white;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
             padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
         }
-        
-        h1 {
-            color: var(--primary-color);
-            margin-bottom: 25px;
+
+        .header {
             text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
         }
-        
-        .btn {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: var(--border-radius);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 16px;
+
+        h1 {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 10px;
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
-            width: 100%;
-            margin-top: 15px;
-        }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
-        }
-        
+
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
-        
+
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--dark-color);
+            font-weight: 600;
+            color: var(--secondary-color);
         }
-        
-        input[type="text"] {
+
+        .form-control {
             width: 100%;
-            padding: 10px 15px;
-            border: 1px solid var(--input-border);
-            border-radius: var(--border-radius);
+            padding: 12px 15px;
             font-size: 16px;
-            transition: border-color 0.3s;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            transition: all 0.3s;
+            background-color: var(--white);
         }
-        
-        input[type="text"]:focus {
-            outline: none;
+
+        .form-control:focus {
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(67, 97, 238, 0.25);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+            outline: none;
         }
-        
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
         .back-link {
-            display: inline-block;
-            margin-top: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
             color: var(--primary-color);
             text-decoration: none;
             font-weight: 500;
+            transition: all 0.3s;
         }
-        
+
         .back-link:hover {
+            color: var(--primary-dark);
             text-decoration: underline;
         }
-        
-        .form-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 25px;
+
+        .example-text {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
         }
     </style>
+    <!-- Iconos de Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <h1>Editar Forma de Pago</h1>
-        
+        <div class="header">
+            <h1><i class="fas fa-credit-card"></i> Editar Forma de Pago</h1>
+        </div>
+
         <form action="{{ route('formas_pago.update', $formas_pago) }}" method="POST">
             @csrf
             @method('PUT')
             
             <div class="form-group">
-                <label for="nombre">Nombre de la Forma de Pago:</label>
+                <label for="nombre"><i class="fas fa-pencil-alt"></i> Nombre de la Forma de Pago</label>
                 <input 
                     type="text" 
+                    class="form-control" 
                     id="nombre" 
                     name="nombre" 
                     value="{{ old('nombre', $formas_pago->nombre) }}" 
@@ -131,12 +194,14 @@
                 >
             </div>
             
-            <button type="submit" class="btn btn-primary">Actualizar Forma de Pago</button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Actualizar Forma de Pago
+            </button>
         </form>
         
         <div class="form-footer">
             <a href="{{ route('formas_pago.index') }}" class="back-link">
-                ← Volver al listado
+                <i class="fas fa-arrow-left"></i> Volver al listado
             </a>
         </div>
     </div>
