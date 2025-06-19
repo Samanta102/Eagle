@@ -190,8 +190,7 @@
                     name="nombre" 
                     value="{{ old('nombre', $formas_pago->nombre) }}" 
                     required
-                    placeholder="Ej: Transferencia Bancaria, Efectivo, Tarjeta de Crédito"
-                >
+                    placeholder="Ej: Transferencia Bancaria, Efectivo, Tarjeta de Crédito">
             </div>
             
             <button type="submit" class="btn btn-primary">
