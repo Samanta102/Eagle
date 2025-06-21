@@ -10,6 +10,8 @@ class Cita extends Model
     protected $primaryKey = 'id_cita';
     public $timestamps = false;
 
+    protected $fillable = ['id_usuario', 'id_patineta', 'fecha', 'hora', 'motivo'];
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'id_usuario');
