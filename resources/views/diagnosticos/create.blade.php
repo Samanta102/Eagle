@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Diagnóstico</title>
+    <!-- Incluir Font Awesome para los iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-color: #3498db;
@@ -45,70 +47,37 @@
         }
 
         .header {
-            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-color);
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         h1 {
             color: var(--secondary-color);
             font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--secondary-color);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 16px;
-            border: 1px solid var(--medium-gray);
-            border-radius: 6px;
-            transition: all 0.3s;
-            background-color: var(--white);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-
-        select.form-control {
-            appearance: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: right 15px center;
-            background-size: 12px;
-        }
-
-        textarea.form-control {
-            min-height: 120px;
-            resize: vertical;
+            margin: 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 500;
+            gap: 8px;
+            padding: 10px 20px;
             border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
             text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
             border: none;
+            cursor: pointer;
+            font-size: 15px;
         }
 
         .btn-primary {
@@ -119,59 +88,83 @@
         .btn-primary:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .btn-secondary {
-            background-color: #6c757d;
+            background-color: var(--secondary-color);
             color: var(--white);
         }
 
         .btn-secondary:hover {
-            background-color: #5a6268;
+            background-color: var(--dark-gray);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .button-group {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .input-group {
-            position: relative;
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--secondary-color);
             display: flex;
             align-items: center;
+            gap: 8px;
         }
 
-        .input-group-prepend {
-            position: absolute;
-            left: 15px;
-            z-index: 5;
-            color: var(--dark-gray);
-            font-weight: 600;
-        }
-
-        .input-group input {
-            padding-left: 40px;
-        }
-
-        .alert {
-            padding: 15px;
-            margin-bottom: 25px;
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--medium-gray);
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 16px;
+            transition: all 0.3s ease;
         }
 
-        .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #f5c6cb;
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
-        .alert-danger ul {
-            margin: 10px 0 0 20px;
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .select-wrapper {
+            position: relative;
+        }
+
+        .select-wrapper::after {
+            content: "▼";
+            font-size: 12px;
+            color: var(--secondary-color);
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
         }
 
         @media (max-width: 768px) {
@@ -179,7 +172,7 @@
                 padding: 20px;
             }
             
-            .button-group {
+            .form-actions {
                 flex-direction: column;
             }
             
@@ -198,79 +191,151 @@
             }
         }
     </style>
-    <!-- Iconos de Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1><i class="fas fa-file-medical"></i> Nuevo Diagnóstico</h1>
+            <h1>
+                <i class="fas fa-stethoscope"></i>
+                Crear Diagnóstico
+            </h1>
         </div>
 
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <strong><i class="fas fa-exclamation-circle"></i> Por favor corrige los siguientes errores:</strong>
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('diagnosticos.store') }}" method="POST">
+        <form method="POST" action="{{ route('diagnosticos.store') }}">
             @csrf
 
-            <!-- Cita -->
             <div class="form-group">
-                <label for="id_cita"><i class="fas fa-calendar-check"></i> Cita</label>
-                <select class="form-control" name="id_cita" required>
-                    <option value="">Seleccione una cita</option>
-                    @foreach ($citas as $cita)
-                        <option value="{{ $cita->id_cita }}" {{ old('id_cita') == $cita->id_cita ? 'selected' : '' }}>
-                            Cita #{{ $cita->id_cita }} - {{ $cita->paciente->nombre ?? 'Sin paciente' }} ({{ $cita->fecha }})
-                        </option>
-                    @endforeach
-                </select>
-            </div>
-
-            <!-- Descripción -->
-            <div class="form-group">
-                <label for="descripcion"><i class="fas fa-file-alt"></i> Descripción</label>
-                <textarea class="form-control" id="descripcion" name="descripcion" required>{{ old('descripcion') }}</textarea>
-            </div>
-
-            <!-- Costo Total -->
-            <div class="form-group">
-                <label for="costo_total"><i class="fas fa-dollar-sign"></i> Costo Total</label>
-                <div class="input-group">
-                    <span class="input-group-prepend">$</span>
-                    <input type="number" class="form-control" id="costo_total" name="costo_total" 
-                           step="0.01" min="0" value="{{ old('costo_total') }}" required>
+                <label for="id_usuario">
+                    <i class="fas fa-user"></i>
+                    Seleccionar Usuario:
+                </label>
+                <div class="select-wrapper">
+                    <select name="id_usuario" id="id_usuario" required>
+                        <option value="">-- Selecciona un usuario --</option>
+                        @foreach($usuarios as $usuario)
+                            <option value="{{ $usuario->id_usuario }}">
+                                {{ $usuario->nombre_usuario }} {{ $usuario->apellido }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
 
-            <div class="button-group">
+            <div class="form-group">
+                <label for="id_cita">
+                    <i class="fas fa-calendar-check"></i>
+                    Seleccionar Cita:
+                </label>
+                <div class="select-wrapper">
+                    <select name="id_cita" id="id_cita" required>
+                        <option value="">-- Selecciona un usuario primero --</option>
+                        @foreach($citas as $cita)
+                            <option value="{{ $cita->id_cita }}" data-usuario="{{ $cita->id_usuario }}" hidden>
+                                Cita #{{ $cita->id_cita }} - {{ $cita->fecha }} {{ $cita->hora }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="id_forma_pago">
+                    <i class="fas fa-credit-card"></i>
+                    Forma de Pago:
+                </label>
+                <div class="select-wrapper">
+                    <select name="id_forma_pago" id="id_forma_pago" required>
+                        <option value="">-- Selecciona una forma de pago --</option>
+                        @foreach($formasPago as $forma)
+                            <option value="{{ $forma->id_forma_pago }}">{{ $forma->nombre }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="descripcion">
+                    <i class="fas fa-file-medical"></i>
+                    Descripción:
+                </label>
+                <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="costo_total">
+                    <i class="fas fa-dollar-sign"></i>
+                    Costo Total:
+                </label>
+                <input type="number" step="0.01" name="costo_total" id="costo_total" required>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha_emision">
+                    <i class="fas fa-calendar-alt"></i>
+                    Fecha de Emisión:
+                </label>
+                <input type="date" name="fecha_emision" id="fecha_emision" required>
+            </div>
+
+            <div class="form-actions">
                 <button type="submit" class="btn btn-primary">
-                    <i class="fas fa-save"></i> Guardar Diagnóstico
+                    <i class="fas fa-save"></i>
+                    Guardar Diagnóstico
                 </button>
                 <a href="{{ route('diagnosticos.index') }}" class="btn btn-secondary">
-                    <i class="fas fa-arrow-left"></i> Volver al Listado
+                    <i class="fas fa-arrow-left"></i>
+                    Volver al listado
                 </a>
             </div>
         </form>
     </div>
 
     <script>
-        // Validación del formulario
-        document.querySelector('form').addEventListener('submit', function(e) {
-            const costoTotal = document.querySelector('input[name="costo_total"]');
-            if (parseFloat(costoTotal.value) <= 0) {
-                alert('El costo total debe ser mayor a cero');
-                costoTotal.focus();
-                e.preventDefault();
-            }
+        document.addEventListener('DOMContentLoaded', function () {
+            const usuarioSelect = document.getElementById('id_usuario');
+            const citaSelect = document.getElementById('id_cita');
+
+            usuarioSelect.addEventListener('change', function () {
+                const selectedUsuario = this.value;
+                let hasVisibleOptions = false;
+
+                Array.from(citaSelect.options).forEach(option => {
+                    if (!option.value) {
+                        option.hidden = true;
+                        return;
+                    }
+
+                    const userId = option.getAttribute('data-usuario');
+
+                    if (userId === selectedUsuario) {
+                        option.hidden = false;
+                        hasVisibleOptions = true;
+                    } else {
+                        option.hidden = true;
+                    }
+                });
+
+                // Actualizar el placeholder según haya opciones disponibles
+                const placeholderOption = citaSelect.options[0];
+                if (hasVisibleOptions) {
+                    placeholderOption.text = "-- Selecciona una cita --";
+                } else {
+                    placeholderOption.text = "-- El usuario seleccionado no tiene citas --";
+                }
+                placeholderOption.hidden = false;
+                
+                citaSelect.value = '';
+            });
+
+            // Validación antes de enviar el formulario
+            document.querySelector('form').addEventListener('submit', function(e) {
+                if (!usuarioSelect.value || !citaSelect.value || !document.getElementById('id_forma_pago').value) {
+                    e.preventDefault();
+                    alert('Por favor complete todos los campos requeridos');
+                }
+            });
         });
     </script>
 </body>
 </html>
+

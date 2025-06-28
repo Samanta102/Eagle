@@ -224,7 +224,7 @@
                             <form action="{{ route('formas_pago.destroy', $forma) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
+                                <button type="submit" class="btn btn-danger btn-delete">
                                     <i class="fas fa-trash-alt"></i> Eliminar
                                 </button>
                             </form>
@@ -240,5 +240,15 @@
             </div>
         @endif
     </div>
+    <script>
+        // Confirmación antes de eliminar
+        document.querySelectorAll('.btn-delete').forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (!confirm('¿Está seguro de eliminar este diagnóstico?')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    </script>
 </body>
 </html>
