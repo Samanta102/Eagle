@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Forma de Pago - Electric House</title>
+    <title>Dashboard Administrativo - Crear Producto</title>
     <style>
         :root {
             --primary-color: #3498db;
             --primary-dark: #2980b9;
             --secondary-color: #2c3e50;
             --danger-color: #e74c3c;
-            --success-color: #2ecc71;
+            --danger-dark: #c0392b;
             --warning-color: #f39c12;
+            --warning-dark: #d35400;
+            --success-color: #2ecc71;
+            --success-dark: #27ae60;
             --info-color: #17a2b8;
             --light-gray: #f5f7fa;
             --medium-gray: #e0e0e0;
@@ -109,6 +112,9 @@
         .header h1 {
             color: var(--secondary-color);
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .user-info {
@@ -119,7 +125,7 @@
 
         /* Form Container */
         .form-container {
-            max-width: 600px;
+            max-width: 800px;
             margin: 0 auto;
             background: var(--white);
             border-radius: 10px;
@@ -127,108 +133,109 @@
             padding: 30px;
         }
 
-        .form-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-color);
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-size: 15px;
         }
 
-        .form-header h2 {
-            color: var(--secondary-color);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--dark-gray);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
             margin-bottom: 8px;
-            font-weight: 600;
+            font-weight: 500;
             color: var(--secondary-color);
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .form-control {
+        input[type="text"],
+        input[type="number"],
+        input[type="date"],
+        textarea,
+        select {
             width: 100%;
-            padding: 12px 15px;
-            font-size: 16px;
+            padding: 12px;
             border: 1px solid var(--medium-gray);
             border-radius: 6px;
-            transition: all 0.3s;
-            background-color: var(--white);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 24px;
             font-size: 16px;
-            font-weight: 500;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
-            text-decoration: none;
-            border: none;
+            transition: border 0.3s ease;
         }
 
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white);
-            width: 100%;
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        input[type="date"]:focus,
+        textarea:focus,
+        select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
-            color: var(--white);
-        }
-
-        .btn-secondary:hover {
-            background-color: #5a6268;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-footer {
-            margin-top: 25px;
-            text-align: center;
-        }
-
-        .back-link {
-            display: inline-flex;
+        .form-actions {
+            display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 5px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
+            margin-top: 30px;
+            gap: 15px;
         }
 
-        .back-link:hover {
-            color: var(--primary-dark);
-            text-decoration: underline;
+        .alert {
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            font-weight: 500;
+        }
+
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.9rem;
+            margin-top: 5px;
         }
 
         /* Responsive */
@@ -291,18 +298,24 @@
                 width: 100%;
             }
             
-            .form-container {
-                padding: 20px;
+            .form-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
-            .form-container {
-                padding: 15px;
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
             }
             
-            .form-header h2 {
-                font-size: 24px;
+            .form-container {
+                padding: 15px;
             }
         }
     </style>
@@ -371,14 +384,14 @@
                 </li>
                 
                 <li class="menu-item">
-                    <a href="{{ route('productos.index') }}" class="menu-link">
+                    <a href="{{ route('productos.index') }}" class="menu-link active">
                         <i class="fas fa-boxes"></i>
                         <span>Productos</span>
                     </a>
                 </li>
                 
                 <li class="menu-item">
-                    <a href="{{ route('formas_pago.index') }}" class="menu-link active">
+                    <a href="{{ route('formas_pago.index') }}" class="menu-link">
                         <i class="fas fa-credit-card"></i>
                         <span>Tipos de Pago</span>
                     </a>
@@ -397,8 +410,8 @@
         <main class="main-content">
             <div class="header">
                 <h1>
-                    <i class="fas fa-credit-card"></i>
-                    Formas de Pago
+                    <i class="fas fa-box"></i>
+                    Crear Nuevo Producto
                 </h1>
                 <div class="user-info">
                     <span>ADMIN Samanta</span>
@@ -407,39 +420,96 @@
             </div>
 
             <div class="form-container">
-                <div class="form-header">
-                    <h2>
-                        <i class="fas fa-edit"></i>
-                        Editar Forma de Pago
-                    </h2>
-                </div>
-
-                <form action="{{ route('formas_pago.update', $formas_pago) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    
-                    <div class="form-group">
-                        <label for="nombre"><i class="fas fa-pencil-alt"></i> Nombre de la Forma de Pago</label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            id="nombre" 
-                            name="nombre" 
-                            value="{{ old('nombre', $formas_pago->nombre) }}" 
-                            required
-                            placeholder="Ej: Transferencia Bancaria, Efectivo, Tarjeta de Crédito">
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Actualizar Forma de Pago
-                    </button>
+                @endif
+
+                <form method="POST" action="{{ route('productos.store') }}">
+                    @csrf
+
+                    <div class="form-group">
+                        <label for="id_producto">
+                            <i class="fas fa-id-card"></i>
+                            ID del producto:
+                        </label>
+                        <input type="text" name="id_producto" id="id_producto" value="{{ old('id_producto') }}" required>
+                        @error('id_producto')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nombre">
+                            <i class="fas fa-tag"></i>
+                            Nombre:
+                        </label>
+                        <input type="text" name="nombre" id="nombre" maxlength="50" value="{{ old('nombre') }}" required>
+                        @error('nombre')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">
+                            <i class="fas fa-align-left"></i>
+                            Descripción:
+                        </label>
+                        <textarea name="descripcion" id="descripcion" rows="3" required>{{ old('descripcion') }}</textarea>
+                        @error('descripcion')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cantidad">
+                            <i class="fas fa-boxes"></i>
+                            Cantidad:
+                        </label>
+                        <input type="number" name="cantidad" id="cantidad" min="0" value="{{ old('cantidad', 0) }}" required>
+                        @error('cantidad')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="costo">
+                            <i class="fas fa-dollar-sign"></i>
+                            Costo:
+                        </label>
+                        <input type="number" name="costo" id="costo" min="0" step="0.01" value="{{ old('costo') }}" required>
+                        @error('costo')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <label for="iva">
+                            <i class="fas fa-percentage"></i>
+                            IVA (%):
+                        </label>
+                        <input type="number" name="iva" id="iva" min="0" step="0.01" value="{{ old('iva') }}" required>
+                        @error('iva')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i>
+                            Guardar Producto
+                        </button>
+                        <a href="{{ route('productos.index') }}" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Volver al listado
+                        </a>
+                    </div>
                 </form>
-                
-                <div class="form-footer">
-                    <a href="{{ route('formas_pago.index') }}" class="back-link">
-                        <i class="fas fa-arrow-left"></i> Volver al listado
-                    </a>
-                </div>
             </div>
         </main>
     </div>

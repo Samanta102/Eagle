@@ -11,6 +11,15 @@ class Producto extends Model
     public $timestamps = false;
     public $incrementing = false;
 
+    protected $fillable = [
+        'id_producto',
+        'nombre',
+        'descripcion',
+        'cantidad',
+        'costo',
+        'iva',
+    ];
+
     public function mantenimientos()
     {
         return $this->hasMany(Mantenimiento::class, 'id_producto');

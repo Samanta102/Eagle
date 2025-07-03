@@ -330,14 +330,14 @@
                 </li>
                 
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('usuarios.index') }}" class="menu-link">
                         <i class="fas fa-users"></i>
                         <span>Usuarios</span>
                     </a>
                 </li>
                 
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('patinetas.index') }}" class="menu-link">
                         <i class="fas fa-motorcycle"></i>
                         <span>Patinetas</span>
                     </a>
@@ -355,31 +355,24 @@
                         <i class="fas fa-file-medical"></i>
                         <span>Diagnósticos</span>
                     </a>
-                </li>
+                </li> 
                 
                 <li class="menu-item">
-                    <a href="{{ route('cotizaciones.index') }}" class="menu-link">
-                        <i class="fas fa-file-invoice-dollar"></i>
-                        <span>Cotizaciones</span>
-                    </a>
-                </li>
-                
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('ordenes_servicio.index') }}" class="menu-link">
                         <i class="fas fa-clipboard-list"></i>
                         <span>Órdenes de Servicio</span>
                     </a>
                 </li>
                 
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('mantenimientos.index') }}" class="menu-link">
                         <i class="fas fa-tools"></i>
                         <span>Mantenimientos</span>
                     </a>
                 </li>
                 
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('productos.index') }}" class="menu-link">
                         <i class="fas fa-boxes"></i>
                         <span>Productos</span>
                     </a>
@@ -393,7 +386,7 @@
                 </li>
                 
                 <li class="menu-item">
-                    <a href="#" class="menu-link">
+                    <a href="{{ route('tipos-iva.index') }}" class="menu-link">
                         <i class="fas fa-percentage"></i>
                         <span>Tipos de IVA</span>
                     </a>
@@ -484,7 +477,7 @@
                         <p>Programa y gestiona las citas de los clientes.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('citas.index') }}" class="btn btn-primary">
                             <i class="fas fa-arrow-right"></i> Acceder
                         </a>
                     </div>
@@ -502,25 +495,7 @@
                         <p>Registra y consulta diagnósticos técnicos.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
-                            <i class="fas fa-arrow-right"></i> Acceder
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Cotizaciones -->
-                <div class="card">
-                    <div class="card-header">
-                        <div class="card-icon icon-quote">
-                            <i class="fas fa-file-invoice-dollar"></i>
-                        </div>
-                        <h3 class="card-title">Cotizaciones</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Genera y administra cotizaciones para clientes.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('diagnosticos.index') }}" class="btn btn-primary">
                             <i class="fas fa-arrow-right"></i> Acceder
                         </a>
                     </div>
@@ -538,7 +513,7 @@
                         <p>Gestiona las órdenes de servicio y su progreso.</p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('ordenes_servicio.index') }}" class="btn btn-primary">
                             <i class="fas fa-arrow-right"></i> Acceder
                         </a>
                     </div>

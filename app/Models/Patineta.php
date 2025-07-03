@@ -10,6 +10,15 @@ class Patineta extends Model
     protected $primaryKey = 'id_patineta';
     public $timestamps = false;
 
+    protected $fillable = [
+    'id_usuario',
+    'numero_serial',
+    'marca',
+    'color',
+    'fecha_registro'
+    ];
+
+
     public function usuario()
     {
         return $this->belongsTo(Usuario::class, 'id_usuario');

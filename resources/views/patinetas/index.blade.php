@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Citas</title>
+    <title>Lista de Patinetas | Taller Mecánico</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -91,11 +91,11 @@
         /* Main Content */
         .main-content {
             flex: 1;
-            margin-left: 250px; /* Igual al ancho del sidebar */
+            margin-left: 250px;
             padding: 20px;
         }
 
-        /* Estilos del CRUD de Citas */
+        /* Estilos del CRUD de Patinetas */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -118,6 +118,9 @@
             color: var(--secondary-color);
             font-weight: 600;
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn {
@@ -156,6 +159,18 @@
             background-color: #d4edda;
             color: #155724;
             border-left: 4px solid #c3e6cb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #f5c6cb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .table-container {
@@ -216,6 +231,11 @@
         .btn-edit {
             background-color: var(--warning-color);
             color: var(--white);
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            transition: all 0.2s;
         }
 
         .btn-edit:hover {
@@ -227,6 +247,12 @@
         .btn-delete {
             background-color: var(--danger-color);
             color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            cursor: pointer;
+            transition: all 0.2s;
         }
 
         .btn-delete:hover {
@@ -249,6 +275,17 @@
             font-size: 2em;
             margin-bottom: 15px;
             color: var(--primary-color);
+        }
+
+        /* Color chips para colores de patinetas */
+        .color-chip {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid rgba(0,0,0,0.1);
         }
 
         /* Responsive */
@@ -348,21 +385,21 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('usuarios.index') }}" class="menu-link">
                     <i class="fas fa-users"></i>
                     <span>Usuarios</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('patinetas.index') }}" class="menu-link active">
                     <i class="fas fa-motorcycle"></i>
                     <span>Patinetas</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link active">
+                <a href="#" class="menu-link">
                     <i class="fas fa-calendar-check"></i>
                     <span>Citas</span>
                 </a>
@@ -375,7 +412,6 @@
                 </a>
             </li>
 
-            
             <li class="menu-item">
                 <a href="{{ route('ordenes_servicio.index') }}" class="menu-link">
                     <i class="fas fa-clipboard-list"></i>
@@ -413,13 +449,13 @@
         </ul>
     </aside>
 
-    <!-- Main Content con el CRUD de Citas -->
+    <!-- Main Content con el listado de patinetas -->
     <main class="main-content">
         <div class="container">
             <div class="header">
-                <h1><i class="fas fa-calendar-check"></i> Listado de Citas</h1>
-                <a href="{{ route('citas.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nueva Cita
+                <h1><i class="fas fa-motorcycle"></i> Listado de Patinetas</h1>
+                <a href="{{ route('patinetas.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Nueva Patineta
                 </a>
             </div>
 
@@ -429,56 +465,66 @@
                 </div>
             @endif
 
-            @if($citas->count() > 0)
+            @if(session('error'))
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+                </div>
+            @endif
+
+            @if($patinetas->count() > 0)
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
                                 <th>ID</th>
                                 <th>Usuario</th>
-                                <th>Patineta</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Motivo</th>
+                                <th>Número Serial</th>
+                                <th>Marca</th>
+                                <th>Color</th>
+                                <th>Fecha de Registro</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($citas as $cita)
-                                <tr>
-                                    <td>{{ $cita->id_cita }}</td>
-                                    <td>{{ $cita->usuario->nombre_usuario ?? 'No disponible' }}</td>
-                                    <td>{{ $cita->patineta->marca ?? 'No disponible' }}</td>
-                                    <td>{{ $cita->fecha }}</td>
-                                    <td>{{ $cita->hora }}</td>
-                                    <td>{{ $cita->motivo }}</td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="{{ route('citas.edit', $cita) }}" class="btn btn-edit">
-                                                <i class="fas fa-edit"></i> Editar
-                                            </a>
-                                            <form action="{{ route('citas.destroy', $cita) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-delete" onclick="return confirm('¿Seguro que quieres eliminar esta cita?')">
-                                                    <i class="fas fa-trash-alt"></i> Eliminar
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                            @foreach($patinetas as $patineta)
+                            <tr>
+                                <td>{{ $patineta->id_patineta }}</td>
+                                <td>{{ $patineta->usuario->nombre_usuario ?? 'Sin usuario' }}</td>
+                                <td>{{ $patineta->numero_serial }}</td>
+                                <td>{{ $patineta->marca }}</td>
+                                <td>
+                                    <span class="color-chip" style="background-color: {{ $patineta->color }};"></span>
+                                    {{ $patineta->color }}
+                                </td>
+                                <td>{{ $patineta->fecha_registro }}</td>
+                                <td>
+                                    <div class="actions">
+                                        <a href="{{ route('patinetas.edit', $patineta->id_patineta) }}" class="btn-edit">
+                                            <i class="fas fa-edit"></i> Editar
+                                        </a>
+                                        <form action="{{ route('patinetas.destroy', $patineta->id_patineta) }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn-delete" onclick="return confirm('¿Estás seguro de eliminar esta patineta?')">
+                                                <i class="fas fa-trash-alt"></i> Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             @else
                 <div class="empty-state">
-                    <i class="fas fa-calendar-times"></i>
-                    <h3>No hay citas registradas</h3>
-                    <p>Comience agregando una nueva cita</p>
+                    <i class="fas fa-motorcycle"></i>
+                    <h3>No hay patinetas registradas</h3>
+                    <p>Comience agregando una nueva patineta</p>
                 </div>
             @endif
         </div>
     </main>
 </body>
 </html>
+

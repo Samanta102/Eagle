@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Crear Diagnóstico</title>
-    <!-- Font Awesome -->
+    <title>Dashboard - Órdenes de Servicio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -17,6 +16,7 @@
             --warning-dark: #d35400;
             --success-color: #2ecc71;
             --success-dark: #27ae60;
+            --info-color: #17a2b8;
             --light-gray: #f5f7fa;
             --medium-gray: #e0e0e0;
             --dark-gray: #333;
@@ -92,13 +92,13 @@
         /* Main Content */
         .main-content {
             flex: 1;
-            margin-left: 250px; /* Igual al ancho del sidebar */
+            margin-left: 250px;
             padding: 20px;
         }
 
-        /* Estilos del Formulario de Diagnóstico */
+        /* Estilos para el CRUD de Órdenes */
         .container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             background: var(--white);
             border-radius: 10px;
@@ -129,6 +129,7 @@
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             padding: 10px 20px;
             border-radius: 6px;
@@ -138,6 +139,7 @@
             border: none;
             cursor: pointer;
             font-size: 15px;
+            min-width: 120px;
         }
 
         .btn-primary {
@@ -151,80 +153,96 @@
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-secondary {
-            background-color: var(--secondary-color);
+        .btn-danger {
+            background-color: var(--danger-color);
             color: var(--white);
         }
 
-        .btn-secondary:hover {
-            background-color: var(--dark-gray);
+        .btn-danger:hover {
+            background-color: var(--danger-dark);
             transform: translateY(-2px);
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .form-group {
-            margin-bottom: 20px;
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: var(--white);
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .btn-warning:hover {
+            background-color: var(--warning-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        textarea,
-        select {
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--medium-gray);
-            border-radius: 6px;
-            font-size: 16px;
-            transition: all 0.3s ease;
+            border-collapse: collapse;
+            background-color: var(--white);
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="date"]:focus,
-        textarea:focus,
-        select:focus {
-            border-color: var(--primary-color);
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
         }
 
-        textarea {
-            min-height: 100px;
-            resize: vertical;
+        th {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
         }
 
-        .form-actions {
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
-            gap: 15px;
+            gap: 10px;
+            flex-wrap: wrap;
         }
 
-        .select-wrapper {
-            position: relative;
+        .actions form {
+            margin: 0;
         }
 
-        .select-wrapper::after {
-            content: "▼";
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-style: italic;
+            background-color: var(--light-gray);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .empty-state i {
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
             font-size: 12px;
-            color: var(--secondary-color);
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
+            font-weight: 600;
+        }
+
+        .badge-info {
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
         /* Responsive */
@@ -281,7 +299,12 @@
                 padding: 20px;
             }
             
-            .form-actions {
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .actions {
                 flex-direction: column;
             }
             
@@ -297,6 +320,11 @@
             
             .container {
                 padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 14px;
             }
         }
     </style>
@@ -341,15 +369,14 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link active">
+                <a href="#" class="menu-link">
                     <i class="fas fa-file-medical"></i>
                     <span>Diagnósticos</span>
                 </a>
             </li>
             
-            
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="#" class="menu-link active">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Órdenes de Servicio</span>
                 </a>
@@ -385,152 +412,73 @@
         </ul>
     </aside>
 
-    <!-- Main Content con el Formulario de Diagnóstico -->
+    <!-- Main Content con el CRUD de Órdenes de Servicio -->
     <main class="main-content">
         <div class="container">
             <div class="header">
                 <h1>
-                    <i class="fas fa-stethoscope"></i>
-                    Crear Diagnóstico
+                    <i class="fas fa-clipboard-check"></i>
+                    Listado de Órdenes de Servicio
                 </h1>
+                <a href="{{ route('ordenes_servicio.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Nueva Orden
+                </a>
             </div>
 
-            <form method="POST" action="{{ route('diagnosticos.store') }}">
-                @csrf
-
-                <div class="form-group">
-                    <label for="id_usuario">
-                        <i class="fas fa-user"></i>
-                        Seleccionar Usuario:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_usuario" id="id_usuario" required>
-                            <option value="">-- Selecciona un usuario --</option>
-                            @foreach($usuarios as $usuario)
-                                <option value="{{ $usuario->id_usuario }}">
-                                    {{ $usuario->nombre_usuario }} {{ $usuario->apellido }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="id_cita">
-                        <i class="fas fa-calendar-check"></i>
-                        Seleccionar Cita:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_cita" id="id_cita" required>
-                            <option value="">-- Selecciona un usuario primero --</option>
-                            @foreach($citas as $cita)
-                                <option value="{{ $cita->id_cita }}" data-usuario="{{ $cita->id_usuario }}" hidden>
-                                    Cita #{{ $cita->id_cita }} - {{ $cita->fecha }} {{ $cita->hora }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="id_forma_pago">
-                        <i class="fas fa-credit-card"></i>
-                        Forma de Pago:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_forma_pago" id="id_forma_pago" required>
-                            <option value="">-- Selecciona una forma de pago --</option>
-                            @foreach($formasPago as $forma)
-                                <option value="{{ $forma->id_forma_pago }}">{{ $forma->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="descripcion">
-                        <i class="fas fa-file-medical"></i>
-                        Descripción:
-                    </label>
-                    <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="costo_total">
-                        <i class="fas fa-dollar-sign"></i>
-                        Costo Total:
-                    </label>
-                    <input type="number" step="0.01" name="costo_total" id="costo_total" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="fecha_emision">
-                        <i class="fas fa-calendar-alt"></i>
-                        Fecha de Emisión:
-                    </label>
-                    <input type="date" name="fecha_emision" id="fecha_emision" required>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i>
-                        Guardar Diagnóstico
-                    </button>
-                    <a href="{{ route('diagnosticos.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i>
-                        Volver al listado
-                    </a>
-                </div>
-            </form>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><i class="fas fa-id-card"></i> ID</th>
+                            <th><i class="fas fa-calendar-check"></i> Cita</th>
+                            <th><i class="fas fa-calendar-times"></i> Fecha Fin</th>
+                            <th><i class="fas fa-comment-alt"></i> Observaciones</th>
+                            <th><i class="fas fa-cogs"></i> Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse($ordenes as $orden)
+                            <tr>
+                                <td>{{ $orden->id_orden }}</td>
+                                <td>
+                                    <span class="badge badge-info">
+                                        Cita #{{ $orden->cita->id_cita ?? 'No encontrada' }}
+                                    </span>
+                                    <br>
+                                    {{ $orden->cita->fecha ?? '' }} {{ $orden->cita->hora ?? '' }}
+                                </td>
+                                <td>{{ $orden->fecha_fin }}</td>
+                                <td>{{ Str::limit($orden->observaciones, 50) }}</td>
+                                <td class="actions">
+                                    <a href="{{ route('ordenes_servicio.edit', $orden->id_orden) }}" class="btn btn-warning">
+                                        <i class="fas fa-edit"></i>
+                                        Editar
+                                    </a>
+                                    <form action="{{ route('ordenes_servicio.destroy', $orden->id_orden) }}"
+                                        method="POST"
+                                        onsubmit="return confirm('¿Estás segura de eliminar esta orden?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">
+                                            <i class="fas fa-trash-alt"></i>
+                                            Eliminar
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="empty-state">
+                                    <i class="fas fa-clipboard-list"></i>
+                                    <p>No hay órdenes registradas</p>
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const usuarioSelect = document.getElementById('id_usuario');
-            const citaSelect = document.getElementById('id_cita');
-
-            usuarioSelect.addEventListener('change', function () {
-                const selectedUsuario = this.value;
-                let hasVisibleOptions = false;
-
-                Array.from(citaSelect.options).forEach(option => {
-                    if (!option.value) {
-                        option.hidden = true;
-                        return;
-                    }
-
-                    const userId = option.getAttribute('data-usuario');
-
-                    if (userId === selectedUsuario) {
-                        option.hidden = false;
-                        hasVisibleOptions = true;
-                    } else {
-                        option.hidden = true;
-                    }
-                });
-
-                // Actualizar el placeholder según haya opciones disponibles
-                const placeholderOption = citaSelect.options[0];
-                if (hasVisibleOptions) {
-                    placeholderOption.text = "-- Selecciona una cita --";
-                } else {
-                    placeholderOption.text = "-- El usuario seleccionado no tiene citas --";
-                }
-                placeholderOption.hidden = false;
-                
-                citaSelect.value = '';
-            });
-
-            // Validación antes de enviar el formulario
-            document.querySelector('form').addEventListener('submit', function(e) {
-                if (!usuarioSelect.value || !citaSelect.value || !document.getElementById('id_forma_pago').value) {
-                    e.preventDefault();
-                    alert('Por favor complete todos los campos requeridos');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
-

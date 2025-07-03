@@ -10,8 +10,14 @@ class TipoIva extends Model
     protected $primaryKey = 'id_iva';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_producto',
+        'nombre_iva',
+        'porcentaje',
+    ];
+
     public function producto()
     {
-        return $this->belongsTo(Producto::class, 'id_producto');
+        return $this->belongsTo(Producto::class, 'id_producto', 'id_producto');
     }
 }

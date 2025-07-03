@@ -10,6 +10,12 @@ class OrdenServicio extends Model
     protected $primaryKey = 'id_orden';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_cita',
+        'fecha_fin',
+        'observaciones',
+    ];
+
     public function cita()
     {
         return $this->belongsTo(Cita::class, 'id_cita');

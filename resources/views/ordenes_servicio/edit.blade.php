@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Crear Diagnóstico</title>
+    <title>Editar Orden de Servicio</title>
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -17,6 +17,7 @@
             --warning-dark: #d35400;
             --success-color: #2ecc71;
             --success-dark: #27ae60;
+            --info-color: #17a2b8;
             --light-gray: #f5f7fa;
             --medium-gray: #e0e0e0;
             --dark-gray: #333;
@@ -96,7 +97,7 @@
             padding: 20px;
         }
 
-        /* Estilos del Formulario de Diagnóstico */
+        /* Estilos del formulario */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -163,7 +164,7 @@
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         label {
@@ -177,7 +178,6 @@
         }
 
         input[type="text"],
-        input[type="number"],
         input[type="date"],
         textarea,
         select {
@@ -186,11 +186,10 @@
             border: 1px solid var(--medium-gray);
             border-radius: 6px;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: border 0.3s ease;
         }
 
         input[type="text"]:focus,
-        input[type="number"]:focus,
         input[type="date"]:focus,
         textarea:focus,
         select:focus {
@@ -200,8 +199,16 @@
         }
 
         textarea {
-            min-height: 100px;
+            min-height: 120px;
             resize: vertical;
+        }
+
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 16px;
         }
 
         .form-actions {
@@ -210,21 +217,6 @@
             align-items: center;
             margin-top: 30px;
             gap: 15px;
-        }
-
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-wrapper::after {
-            content: "▼";
-            font-size: 12px;
-            color: var(--secondary-color);
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
         }
 
         /* Responsive */
@@ -298,6 +290,10 @@
             .container {
                 padding: 15px;
             }
+            
+            h1 {
+                font-size: 24px;
+            }
         }
     </style>
 </head>
@@ -341,15 +337,14 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link active">
+                <a href="#" class="menu-link">
                     <i class="fas fa-file-medical"></i>
                     <span>Diagnósticos</span>
                 </a>
             </li>
             
-            
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="#" class="menu-link active">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Órdenes de Servicio</span>
                 </a>
@@ -385,98 +380,58 @@
         </ul>
     </aside>
 
-    <!-- Main Content con el Formulario de Diagnóstico -->
+    <!-- Main Content con el formulario de edición -->
     <main class="main-content">
         <div class="container">
             <div class="header">
                 <h1>
-                    <i class="fas fa-stethoscope"></i>
-                    Crear Diagnóstico
+                    <i class="fas fa-file-alt"></i>
+                    Editar Orden de Servicio #{{ $orden->id_orden }}
                 </h1>
             </div>
 
-            <form method="POST" action="{{ route('diagnosticos.store') }}">
+            <form method="POST" action="{{ route('ordenes_servicio.update', $orden->id_orden) }}">
                 @csrf
-
-                <div class="form-group">
-                    <label for="id_usuario">
-                        <i class="fas fa-user"></i>
-                        Seleccionar Usuario:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_usuario" id="id_usuario" required>
-                            <option value="">-- Selecciona un usuario --</option>
-                            @foreach($usuarios as $usuario)
-                                <option value="{{ $usuario->id_usuario }}">
-                                    {{ $usuario->nombre_usuario }} {{ $usuario->apellido }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                @method('PUT')
 
                 <div class="form-group">
                     <label for="id_cita">
                         <i class="fas fa-calendar-check"></i>
                         Seleccionar Cita:
                     </label>
-                    <div class="select-wrapper">
-                        <select name="id_cita" id="id_cita" required>
-                            <option value="">-- Selecciona un usuario primero --</option>
-                            @foreach($citas as $cita)
-                                <option value="{{ $cita->id_cita }}" data-usuario="{{ $cita->id_usuario }}" hidden>
-                                    Cita #{{ $cita->id_cita }} - {{ $cita->fecha }} {{ $cita->hora }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <select name="id_cita" id="id_cita" class="form-control" required>
+                        @foreach($citas as $cita)
+                            <option value="{{ $cita->id_cita }}"
+                                {{ $cita->id_cita == $orden->id_cita ? 'selected' : '' }}>
+                                Cita #{{ $cita->id_cita }} - {{ $cita->fecha }} {{ $cita->hora }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="id_forma_pago">
-                        <i class="fas fa-credit-card"></i>
-                        Forma de Pago:
+                    <label for="fecha_fin">
+                        <i class="fas fa-calendar-times"></i>
+                        Fecha de finalización:
                     </label>
-                    <div class="select-wrapper">
-                        <select name="id_forma_pago" id="id_forma_pago" required>
-                            <option value="">-- Selecciona una forma de pago --</option>
-                            @foreach($formasPago as $forma)
-                                <option value="{{ $forma->id_forma_pago }}">{{ $forma->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <input type="date" name="fecha_fin" id="fecha_fin" class="form-control" 
+                           value="{{ old('fecha_fin', $orden->fecha_fin) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="descripcion">
-                        <i class="fas fa-file-medical"></i>
-                        Descripción:
+                    <label for="observaciones">
+                        <i class="fas fa-clipboard"></i>
+                        Observaciones:
                     </label>
-                    <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="costo_total">
-                        <i class="fas fa-dollar-sign"></i>
-                        Costo Total:
-                    </label>
-                    <input type="number" step="0.01" name="costo_total" id="costo_total" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="fecha_emision">
-                        <i class="fas fa-calendar-alt"></i>
-                        Fecha de Emisión:
-                    </label>
-                    <input type="date" name="fecha_emision" id="fecha_emision" required>
+                    <textarea name="observaciones" id="observaciones" class="form-control" rows="4">{{ old('observaciones', $orden->observaciones) }}</textarea>
                 </div>
 
                 <div class="form-actions">
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i>
-                        Guardar Diagnóstico
+                        Actualizar Orden
                     </button>
-                    <a href="{{ route('diagnosticos.index') }}" class="btn btn-secondary">
+                    <a href="{{ route('ordenes_servicio.index') }}" class="btn btn-secondary">
                         <i class="fas fa-arrow-left"></i>
                         Volver al listado
                     </a>
@@ -484,53 +439,5 @@
             </form>
         </div>
     </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const usuarioSelect = document.getElementById('id_usuario');
-            const citaSelect = document.getElementById('id_cita');
-
-            usuarioSelect.addEventListener('change', function () {
-                const selectedUsuario = this.value;
-                let hasVisibleOptions = false;
-
-                Array.from(citaSelect.options).forEach(option => {
-                    if (!option.value) {
-                        option.hidden = true;
-                        return;
-                    }
-
-                    const userId = option.getAttribute('data-usuario');
-
-                    if (userId === selectedUsuario) {
-                        option.hidden = false;
-                        hasVisibleOptions = true;
-                    } else {
-                        option.hidden = true;
-                    }
-                });
-
-                // Actualizar el placeholder según haya opciones disponibles
-                const placeholderOption = citaSelect.options[0];
-                if (hasVisibleOptions) {
-                    placeholderOption.text = "-- Selecciona una cita --";
-                } else {
-                    placeholderOption.text = "-- El usuario seleccionado no tiene citas --";
-                }
-                placeholderOption.hidden = false;
-                
-                citaSelect.value = '';
-            });
-
-            // Validación antes de enviar el formulario
-            document.querySelector('form').addEventListener('submit', function(e) {
-                if (!usuarioSelect.value || !citaSelect.value || !document.getElementById('id_forma_pago').value) {
-                    e.preventDefault();
-                    alert('Por favor complete todos los campos requeridos');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
-

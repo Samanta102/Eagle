@@ -10,6 +10,13 @@ class Mantenimiento extends Model
     protected $primaryKey = 'id_mantenimiento';
     public $timestamps = false;
 
+    protected $fillable = [
+        'id_orden',
+        'id_producto',
+        'total',
+        'fecha',
+    ];
+
     public function orden()
     {
         return $this->belongsTo(OrdenServicio::class, 'id_orden');

@@ -10,6 +10,17 @@ class Usuario extends Model
     protected $primaryKey = 'id_usuario';
     public $timestamps = false;
 
+    protected $fillable = [
+    'id_rol',
+    'nombre_usuario',
+    'apellido',
+    'doc_identidad',
+    'direccion',
+    'telefono',
+    'correo',
+    'contrasena',
+    ];
+
     public function rol()
     {
         return $this->belongsTo(Rol::class, 'id_rol');

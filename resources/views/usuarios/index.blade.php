@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Citas</title>
+    <title>Lista de Usuarios</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -95,7 +95,7 @@
             padding: 20px;
         }
 
-        /* Estilos del CRUD de Citas */
+        /* Estilos para la lista de usuarios */
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -118,6 +118,9 @@
             color: var(--secondary-color);
             font-weight: 600;
             margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .btn {
@@ -150,12 +153,21 @@
             margin-bottom: 25px;
             border-radius: 6px;
             font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .alert-success {
             background-color: #d4edda;
             color: #155724;
             border-left: 4px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #f5c6cb;
         }
 
         .table-container {
@@ -251,6 +263,32 @@
             color: var(--primary-color);
         }
 
+        /* Badge para roles */
+        .role-badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .role-admin {
+            background-color: rgba(231, 76, 60, 0.2);
+            color: var(--danger-color);
+        }
+
+        .role-mecanico {
+            background-color: rgba(52, 152, 219, 0.2);
+            color: var(--primary-color);
+        }
+
+        .role-cliente {
+            background-color: rgba(46, 204, 113, 0.2);
+            color: var(--success-color);
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             .sidebar {
@@ -324,6 +362,11 @@
             .container {
                 padding: 15px;
             }
+            
+            .btn {
+                padding: 8px 12px;
+                font-size: 14px;
+            }
         }
     </style>
     <!-- Font Awesome -->
@@ -348,7 +391,7 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="#" class="menu-link active">
                     <i class="fas fa-users"></i>
                     <span>Usuarios</span>
                 </a>
@@ -362,7 +405,7 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link active">
+                <a href="#" class="menu-link">
                     <i class="fas fa-calendar-check"></i>
                     <span>Citas</span>
                 </a>
@@ -375,7 +418,6 @@
                 </a>
             </li>
 
-            
             <li class="menu-item">
                 <a href="{{ route('ordenes_servicio.index') }}" class="menu-link">
                     <i class="fas fa-clipboard-list"></i>
@@ -413,54 +455,63 @@
         </ul>
     </aside>
 
-    <!-- Main Content con el CRUD de Citas -->
+    <!-- Main Content con la lista de usuarios -->
     <main class="main-content">
         <div class="container">
             <div class="header">
-                <h1><i class="fas fa-calendar-check"></i> Listado de Citas</h1>
-                <a href="{{ route('citas.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nueva Cita
+                <h1><i class="fas fa-users"></i> Lista de Usuarios</h1>
+                <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Nuevo Usuario
                 </a>
             </div>
 
+            {{-- Mensajes de éxito o error --}}
             @if(session('success'))
                 <div class="alert alert-success">
                     <i class="fas fa-check-circle"></i> {{ session('success') }}
                 </div>
             @endif
 
-            @if($citas->count() > 0)
+            @if(session('error'))
+                <div class="alert alert-error">
+                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+                </div>
+            @endif
+
+            @if($usuarios->count() > 0)
                 <div class="table-container">
                     <table>
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Usuario</th>
-                                <th>Patineta</th>
-                                <th>Fecha</th>
-                                <th>Hora</th>
-                                <th>Motivo</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Rol</th>
+                                <th>Correo</th>
+                                <th>Teléfono</th>
                                 <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($citas as $cita)
+                            @foreach($usuarios as $usuario)
                                 <tr>
-                                    <td>{{ $cita->id_cita }}</td>
-                                    <td>{{ $cita->usuario->nombre_usuario ?? 'No disponible' }}</td>
-                                    <td>{{ $cita->patineta->marca ?? 'No disponible' }}</td>
-                                    <td>{{ $cita->fecha }}</td>
-                                    <td>{{ $cita->hora }}</td>
-                                    <td>{{ $cita->motivo }}</td>
+                                    <td>{{ $usuario->nombre_usuario }}</td>
+                                    <td>{{ $usuario->apellido }}</td>
+                                    <td>
+                                        <span class="role-badge role-{{ strtolower($usuario->rol->nombre) }}">
+                                            {{ $usuario->rol->nombre }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $usuario->correo }}</td>
+                                    <td>{{ $usuario->telefono }}</td>
                                     <td>
                                         <div class="actions">
-                                            <a href="{{ route('citas.edit', $cita) }}" class="btn btn-edit">
+                                            <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="btn btn-edit">
                                                 <i class="fas fa-edit"></i> Editar
                                             </a>
-                                            <form action="{{ route('citas.destroy', $cita) }}" method="POST">
+                                            <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-delete" onclick="return confirm('¿Seguro que quieres eliminar esta cita?')">
+                                                <button type="submit" class="btn btn-delete" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
                                                     <i class="fas fa-trash-alt"></i> Eliminar
                                                 </button>
                                             </form>
@@ -473,9 +524,9 @@
                 </div>
             @else
                 <div class="empty-state">
-                    <i class="fas fa-calendar-times"></i>
-                    <h3>No hay citas registradas</h3>
-                    <p>Comience agregando una nueva cita</p>
+                    <i class="fas fa-user-times"></i>
+                    <h3>No hay usuarios registrados</h3>
+                    <p>Comience agregando un nuevo usuario</p>
                 </div>
             @endif
         </div>

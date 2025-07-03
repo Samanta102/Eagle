@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Forma de Pago - Electric House</title>
+    <title>Tipos de IVA - Electric House</title>
     <style>
         :root {
             --primary-color: #3498db;
             --primary-dark: #2980b9;
             --secondary-color: #2c3e50;
             --danger-color: #e74c3c;
-            --success-color: #2ecc71;
+            --danger-dark: #c0392b;
             --warning-color: #f39c12;
+            --warning-dark: #d35400;
+            --success-color: #2ecc71;
+            --success-dark: #27ae60;
             --info-color: #17a2b8;
             --light-gray: #f5f7fa;
             --medium-gray: #e0e0e0;
@@ -93,7 +96,7 @@
         .main-content {
             flex: 1;
             padding: 20px;
-            margin-left: 250px;
+            margin-left: 250px; /* Igual al ancho del sidebar */
             width: calc(100% - 250px);
         }
 
@@ -117,9 +120,9 @@
             gap: 10px;
         }
 
-        /* Form Container */
-        .form-container {
-            max-width: 600px;
+        /* Content Container */
+        .content-container {
+            max-width: 1200px;
             margin: 0 auto;
             background: var(--white);
             border-radius: 10px;
@@ -127,108 +130,122 @@
             padding: 30px;
         }
 
-        .form-header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--primary-color);
-        }
-
-        .form-header h2 {
-            color: var(--secondary-color);
-            font-weight: 600;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            font-size: 16px;
-            border: 1px solid var(--medium-gray);
-            border-radius: 6px;
-            transition: all 0.3s;
-            background-color: var(--white);
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
-            outline: none;
-        }
-
         .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 12px 24px;
-            font-size: 16px;
-            font-weight: 500;
+            gap: 8px;
+            padding: 10px 20px;
             border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s;
             text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
             border: none;
+            cursor: pointer;
+            font-size: 15px;
+            min-width: 120px;
         }
 
         .btn-primary {
             background-color: var(--primary-color);
             color: var(--white);
-            width: 100%;
         }
 
         .btn-primary:hover {
             background-color: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .btn-secondary {
-            background-color: #6c757d;
+        .btn-danger {
+            background-color: var(--danger-color);
             color: var(--white);
         }
 
-        .btn-secondary:hover {
-            background-color: #5a6268;
+        .btn-danger:hover {
+            background-color: var(--danger-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .form-footer {
-            margin-top: 25px;
+        .btn-warning {
+            background-color: var(--warning-color);
+            color: var(--white);
+        }
+
+        .btn-warning:hover {
+            background-color: var(--warning-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--white);
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: var(--white);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        tr:hover {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .actions form {
+            margin: 0;
+        }
+
+        .empty-state {
             text-align: center;
+            padding: 40px;
+            color: #6c757d;
+            font-style: italic;
+            background-color: var(--light-gray);
+            border-radius: 8px;
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
+        .empty-state i {
+            font-size: 2em;
+            margin-bottom: 15px;
             color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s;
         }
 
-        .back-link:hover {
-            color: var(--primary-dark);
-            text-decoration: underline;
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-primary {
+            background-color: var(--primary-color);
+            color: var(--white);
         }
 
         /* Responsive */
@@ -291,18 +308,28 @@
                 width: 100%;
             }
             
-            .form-container {
-                padding: 20px;
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
             }
         }
 
         @media (max-width: 480px) {
-            .form-container {
+            .content-container {
                 padding: 15px;
             }
             
-            .form-header h2 {
-                font-size: 24px;
+            th, td {
+                padding: 10px 8px;
+                font-size: 14px;
             }
         }
     </style>
@@ -378,14 +405,14 @@
                 </li>
                 
                 <li class="menu-item">
-                    <a href="{{ route('formas_pago.index') }}" class="menu-link active">
+                    <a href="{{ route('formas_pago.index') }}" class="menu-link">
                         <i class="fas fa-credit-card"></i>
                         <span>Tipos de Pago</span>
                     </a>
                 </li>
                 
                 <li class="menu-item">
-                    <a href="{{ route('tipos-iva.index') }}" class="menu-link">
+                    <a href="{{ route('tipos-iva.index') }}" class="menu-link active">
                         <i class="fas fa-percentage"></i>
                         <span>Tipos de IVA</span>
                     </a>
@@ -397,8 +424,8 @@
         <main class="main-content">
             <div class="header">
                 <h1>
-                    <i class="fas fa-credit-card"></i>
-                    Formas de Pago
+                    <i class="fas fa-percentage"></i>
+                    Tipos de IVA
                 </h1>
                 <div class="user-info">
                     <span>ADMIN Samanta</span>
@@ -406,39 +433,67 @@
                 </div>
             </div>
 
-            <div class="form-container">
-                <div class="form-header">
-                    <h2>
-                        <i class="fas fa-edit"></i>
-                        Editar Forma de Pago
-                    </h2>
+            <div class="content-container">
+                <div class="header">
+                    <h1>
+                        <i class="fas fa-chart-pie"></i>
+                        Tipos de IVA
+                    </h1>
+                    <a href="{{ route('tipos-iva.create') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Nuevo Tipo de IVA
+                    </a>
                 </div>
 
-                <form action="{{ route('formas_pago.update', $formas_pago) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    
-                    <div class="form-group">
-                        <label for="nombre"><i class="fas fa-pencil-alt"></i> Nombre de la Forma de Pago</label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            id="nombre" 
-                            name="nombre" 
-                            value="{{ old('nombre', $formas_pago->nombre) }}" 
-                            required
-                            placeholder="Ej: Transferencia Bancaria, Efectivo, Tarjeta de Crédito">
-                    </div>
-                    
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Actualizar Forma de Pago
-                    </button>
-                </form>
-                
-                <div class="form-footer">
-                    <a href="{{ route('formas_pago.index') }}" class="back-link">
-                        <i class="fas fa-arrow-left"></i> Volver al listado
-                    </a>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th><i class="fas fa-id-card"></i> ID</th>
+                                <th><i class="fas fa-box"></i> Producto</th>
+                                <th><i class="fas fa-tag"></i> Nombre IVA</th>
+                                <th><i class="fas fa-percentage"></i> Porcentaje</th>
+                                <th><i class="fas fa-cogs"></i> Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($tipos as $tipo)
+                                <tr>
+                                    <td>{{ $tipo->id_iva }}</td>
+                                    <td>
+                                        <span class="badge badge-primary">
+                                            {{ $tipo->producto->nombre ?? 'Producto no encontrado' }}
+                                        </span>
+                                    </td>
+                                    <td>{{ $tipo->nombre_iva }}</td>
+                                    <td>{{ $tipo->porcentaje }}%</td>
+                                    <td class="actions">
+                                        <a href="{{ route('tipos-iva.edit', $tipo->id_iva) }}" class="btn btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                            Editar
+                                        </a>
+                                        <form action="{{ route('tipos-iva.destroy', $tipo->id_iva) }}" 
+                                              method="POST"
+                                              onsubmit="return confirm('¿Eliminar este tipo de IVA?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger">
+                                                <i class="fas fa-trash-alt"></i>
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="empty-state">
+                                        <i class="fas fa-chart-pie"></i>
+                                        <p>No hay tipos de IVA registrados</p>
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </main>

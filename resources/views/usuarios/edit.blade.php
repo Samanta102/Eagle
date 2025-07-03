@@ -3,9 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Crear Diagnóstico</title>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Editar Usuario | Taller Mecánico</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -17,6 +15,7 @@
             --warning-dark: #d35400;
             --success-color: #2ecc71;
             --success-dark: #27ae60;
+            --info-color: #17a2b8;
             --light-gray: #f5f7fa;
             --medium-gray: #e0e0e0;
             --dark-gray: #333;
@@ -96,7 +95,7 @@
             padding: 20px;
         }
 
-        /* Estilos del Formulario de Diagnóstico */
+        /* Estilos para el formulario */
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -119,8 +118,6 @@
             color: var(--secondary-color);
             font-weight: 600;
             margin: 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--primary-color);
             display: flex;
             align-items: center;
             gap: 10px;
@@ -152,79 +149,90 @@
         }
 
         .btn-secondary {
-            background-color: var(--secondary-color);
-            color: var(--white);
+            background-color: var(--medium-gray);
+            color: var(--dark-gray);
         }
 
         .btn-secondary:hover {
-            background-color: var(--dark-gray);
+            background-color: #d0d0d0;
             transform: translateY(-2px);
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-error {
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 6px;
+            font-size: 15px;
+            background-color: #f8d7da;
+            color: #721c24;
+            border-left: 4px solid #f5c6cb;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .alert-error ul {
+            list-style-position: inside;
+            margin-left: 10px;
         }
 
         .form-group {
             margin-bottom: 20px;
         }
 
-        label {
+        .form-label {
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
             color: var(--secondary-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
 
-        input[type="text"],
-        input[type="number"],
-        input[type="date"],
-        textarea,
-        select {
+        .form-control {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             border: 1px solid var(--medium-gray);
             border-radius: 6px;
             font-size: 16px;
-            transition: all 0.3s ease;
+            transition: border 0.3s;
         }
 
-        input[type="text"]:focus,
-        input[type="number"]:focus,
-        input[type="date"]:focus,
-        textarea:focus,
-        select:focus {
-            border-color: var(--primary-color);
+        .form-control:focus {
             outline: none;
+            border-color: var(--primary-color);
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
-        textarea {
-            min-height: 100px;
-            resize: vertical;
+        .form-select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--medium-gray);
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: var(--white);
+            transition: border 0.3s;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
 
         .form-actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 30px;
+            justify-content: flex-end;
             gap: 15px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid var(--medium-gray);
         }
 
-        .select-wrapper {
-            position: relative;
-        }
-
-        .select-wrapper::after {
-            content: "▼";
-            font-size: 12px;
-            color: var(--secondary-color);
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
+        .password-note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
         }
 
         /* Responsive */
@@ -280,26 +288,21 @@
             .container {
                 padding: 20px;
             }
-            
+        }
+
+        @media (max-width: 576px) {
             .form-actions {
                 flex-direction: column;
             }
             
             .btn {
                 width: 100%;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 15px;
-            }
-            
-            .container {
-                padding: 15px;
+                justify-content: center;
             }
         }
     </style>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Sidebar Estático -->
@@ -313,14 +316,14 @@
         
         <ul class="sidebar-menu">
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('dashboard') }}" class="menu-link">
                     <i class="fas fa-tachometer-alt"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('usuarios.index') }}" class="menu-link active">
                     <i class="fas fa-users"></i>
                     <span>Usuarios</span>
                 </a>
@@ -341,43 +344,42 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link active">
+                <a href="{{ route('diagnosticos.index') }}" class="menu-link">
                     <i class="fas fa-file-medical"></i>
                     <span>Diagnósticos</span>
                 </a>
             </li>
-            
-            
+
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('ordenes_servicio.index') }}" class="menu-link">
                     <i class="fas fa-clipboard-list"></i>
                     <span>Órdenes de Servicio</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('mantenimientos.index') }}" class="menu-link">
                     <i class="fas fa-tools"></i>
                     <span>Mantenimientos</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('productos.index') }}" class="menu-link">
                     <i class="fas fa-boxes"></i>
                     <span>Productos</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('formas_pago.index') }}" class="menu-link">
                     <i class="fas fa-credit-card"></i>
                     <span>Tipos de Pago</span>
                 </a>
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('tipos-iva.index') }}" class="menu-link">
                     <i class="fas fa-percentage"></i>
                     <span>Tipos de IVA</span>
                 </a>
@@ -385,152 +387,94 @@
         </ul>
     </aside>
 
-    <!-- Main Content con el Formulario de Diagnóstico -->
+    <!-- Main Content con el formulario -->
     <main class="main-content">
         <div class="container">
             <div class="header">
-                <h1>
-                    <i class="fas fa-stethoscope"></i>
-                    Crear Diagnóstico
-                </h1>
+                <h1><i class="fas fa-user-edit"></i> Editar Usuario</h1>
+                <a href="{{ route('usuarios.index') }}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
             </div>
 
-            <form method="POST" action="{{ route('diagnosticos.store') }}">
+            @if($errors->any())
+                <div class="alert-error">
+                    <div><i class="fas fa-exclamation-circle"></i> Por favor corrige los siguientes errores:</div>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form action="{{ route('usuarios.update', $usuario->id_usuario) }}" method="POST">
                 @csrf
+                @method('PUT')
 
                 <div class="form-group">
-                    <label for="id_usuario">
-                        <i class="fas fa-user"></i>
-                        Seleccionar Usuario:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_usuario" id="id_usuario" required>
-                            <option value="">-- Selecciona un usuario --</option>
-                            @foreach($usuarios as $usuario)
-                                <option value="{{ $usuario->id_usuario }}">
-                                    {{ $usuario->nombre_usuario }} {{ $usuario->apellido }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="id_rol" class="form-label">Rol</label>
+                    <select name="id_rol" id="id_rol" class="form-select" required>
+                        @foreach($roles as $rol)
+                            <option value="{{ $rol->id_rol }}" {{ $usuario->id_rol == $rol->id_rol ? 'selected' : '' }}>
+                                {{ $rol->nombre }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="id_cita">
-                        <i class="fas fa-calendar-check"></i>
-                        Seleccionar Cita:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_cita" id="id_cita" required>
-                            <option value="">-- Selecciona un usuario primero --</option>
-                            @foreach($citas as $cita)
-                                <option value="{{ $cita->id_cita }}" data-usuario="{{ $cita->id_usuario }}" hidden>
-                                    Cita #{{ $cita->id_cita }} - {{ $cita->fecha }} {{ $cita->hora }}
-                                </option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="nombre_usuario" class="form-label">Nombre de Usuario</label>
+                    <input type="text" name="nombre_usuario" id="nombre_usuario" class="form-control" 
+                           value="{{ old('nombre_usuario', $usuario->nombre_usuario) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="id_forma_pago">
-                        <i class="fas fa-credit-card"></i>
-                        Forma de Pago:
-                    </label>
-                    <div class="select-wrapper">
-                        <select name="id_forma_pago" id="id_forma_pago" required>
-                            <option value="">-- Selecciona una forma de pago --</option>
-                            @foreach($formasPago as $forma)
-                                <option value="{{ $forma->id_forma_pago }}">{{ $forma->nombre }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input type="text" name="apellido" id="apellido" class="form-control" 
+                           value="{{ old('apellido', $usuario->apellido) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="descripcion">
-                        <i class="fas fa-file-medical"></i>
-                        Descripción:
-                    </label>
-                    <textarea name="descripcion" id="descripcion" rows="3" required></textarea>
+                    <label for="doc_identidad" class="form-label">Documento de Identidad</label>
+                    <input type="text" name="doc_identidad" id="doc_identidad" class="form-control" 
+                           value="{{ old('doc_identidad', $usuario->doc_identidad) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="costo_total">
-                        <i class="fas fa-dollar-sign"></i>
-                        Costo Total:
-                    </label>
-                    <input type="number" step="0.01" name="costo_total" id="costo_total" required>
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" name="direccion" id="direccion" class="form-control" 
+                           value="{{ old('direccion', $usuario->direccion) }}" required>
                 </div>
 
                 <div class="form-group">
-                    <label for="fecha_emision">
-                        <i class="fas fa-calendar-alt"></i>
-                        Fecha de Emisión:
-                    </label>
-                    <input type="date" name="fecha_emision" id="fecha_emision" required>
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input type="text" name="telefono" id="telefono" class="form-control" 
+                           value="{{ old('telefono', $usuario->telefono) }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="correo" class="form-label">Correo Electrónico</label>
+                    <input type="email" name="correo" id="correo" class="form-control" 
+                           value="{{ old('correo', $usuario->correo) }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="contrasena" class="form-label">Contraseña</label>
+                    <input type="password" name="contrasena" id="contrasena" class="form-control">
+                    <p class="password-note">Dejar en blanco si no deseas cambiar la contraseña</p>
                 </div>
 
                 <div class="form-actions">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i>
-                        Guardar Diagnóstico
+                    <button type="reset" class="btn btn-secondary">
+                        <i class="fas fa-undo"></i> Restablecer
                     </button>
-                    <a href="{{ route('diagnosticos.index') }}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i>
-                        Volver al listado
-                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Actualizar Usuario
+                    </button>
                 </div>
             </form>
         </div>
     </main>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const usuarioSelect = document.getElementById('id_usuario');
-            const citaSelect = document.getElementById('id_cita');
-
-            usuarioSelect.addEventListener('change', function () {
-                const selectedUsuario = this.value;
-                let hasVisibleOptions = false;
-
-                Array.from(citaSelect.options).forEach(option => {
-                    if (!option.value) {
-                        option.hidden = true;
-                        return;
-                    }
-
-                    const userId = option.getAttribute('data-usuario');
-
-                    if (userId === selectedUsuario) {
-                        option.hidden = false;
-                        hasVisibleOptions = true;
-                    } else {
-                        option.hidden = true;
-                    }
-                });
-
-                // Actualizar el placeholder según haya opciones disponibles
-                const placeholderOption = citaSelect.options[0];
-                if (hasVisibleOptions) {
-                    placeholderOption.text = "-- Selecciona una cita --";
-                } else {
-                    placeholderOption.text = "-- El usuario seleccionado no tiene citas --";
-                }
-                placeholderOption.hidden = false;
-                
-                citaSelect.value = '';
-            });
-
-            // Validación antes de enviar el formulario
-            document.querySelector('form').addEventListener('submit', function(e) {
-                if (!usuarioSelect.value || !citaSelect.value || !document.getElementById('id_forma_pago').value) {
-                    e.preventDefault();
-                    alert('Por favor complete todos los campos requeridos');
-                }
-            });
-        });
-    </script>
 </body>
 </html>
-
