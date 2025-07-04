@@ -396,11 +396,18 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="header">
+            <div class="header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h1>Panel de Control</h1>
-                <div class="user-info">
-                    <span>ADMIN Samanta</span>
+                <div class="user-info" style="display: flex; align-items: center; gap: 15px;">
+                    <span>Administrador {{ session('usuario')->nombre_usuario }}</span>
                     <i class="fas fa-user-circle" style="font-size: 24px;"></i>
+
+                    {{-- Botón de cerrar sesión --}}
+                    <form action="{{ route('logout') }}" method="GET" onsubmit="return confirm('¿Cerrar sesión?')">
+                        <button type="submit" style="padding: 5px 10px; background-color: #f44336; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                            Cerrar sesión
+                        </button>
+                    </form>
                 </div>
             </div>
 

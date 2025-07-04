@@ -3,1106 +3,1186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard cliente</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>ElectroSkate Care | Mantenimiento Profesional de Patinetas Eléctricas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #4361ee;
-            --primary-light: #4895ef;
-            --secondary: #3f37c9;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
-            --success: #4cc9f0;
-            --danger: #f72585;
-            --warning: #f8961e;
-            --gray: #6c757d;
-            --gray-light: #e9ecef;
-            --diagnostic: #7209b7;
+            --primary: #00a8ff;
+            --secondary: #0097e6;
+            --dark: #1e272e;
+            --light: #f5f6fa;
+            --accent: #ffa502;
+            --success: #4cd137;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Montserrat', sans-serif;
         }
-        
+
         body {
-            background-color: #f5f7ff;
+            font-family: 'Poppins', sans-serif;
             color: var(--dark);
+            background-color: var(--light);
             line-height: 1.6;
+            overflow-x: hidden;
         }
-        
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+
         .container {
+            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 0 20px;
         }
-        
+
+        /* Header */
         header {
+            background-color: rgba(30, 39, 46, 0.9);
+            color: white;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 0;
+            background-color: rgba(30, 39, 46, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0,0,0,0.1);
         }
-        
+
         .logo {
+            display: flex;
+            align-items: center;
             font-size: 1.8rem;
             font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
+            color: white;
+            text-decoration: none;
         }
-        
+
         .logo i {
-            margin-right: 0.5rem;
-            color: var(--secondary);
+            color: var(--primary);
+            margin-right: 10px;
+            font-size: 2rem;
         }
-        
-        .user-actions {
+
+        nav ul {
             display: flex;
-            gap: 1rem;
+            list-style: none;
         }
-        
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 30px;
-            border: none;
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
             font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
+            transition: color 0.3s;
+            position: relative;
         }
-        
-        .btn-primary {
+
+        nav ul li a:hover {
+            color: var(--primary);
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            bottom: -5px;
+            left: 0;
+            transition: width 0.3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1621570366646-bf3a1b8d0f6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
             background-color: var(--primary);
             color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
         }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
+
+        .btn:hover {
+            background-color: transparent;
+            color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn-outline {
             background-color: transparent;
-            border: 1px solid var(--primary);
-            color: var(--primary);
+            border: 2px solid white;
+            margin-left: 15px;
         }
-        
+
         .btn-outline:hover {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .btn-danger {
-            background-color: var(--danger);
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background-color: #d31666;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(247, 37, 133, 0.2);
-        }
-        
-        .btn-diagnostic {
-            background-color: var(--diagnostic);
-            color: white;
-        }
-        
-        .btn-diagnostic:hover {
-            background-color: #5a0895;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(114, 9, 183, 0.2);
-        }
-        
-        .card {
             background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-            padding: 2rem;
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.1);
-        }
-        
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .card-title {
-            font-size: 1.4rem;
-            font-weight: 600;
             color: var(--dark);
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
         }
-        
-        .card-title i {
-            color: var(--primary);
+
+        /* Services Section */
+        .section {
+            padding: 100px 0;
         }
-        
-        .profile-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: var(--dark);
-            font-size: 0.9rem;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 0.8rem 1rem;
-            border: 1px solid var(--gray-light);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            transition: border-color 0.3s ease;
-        }
-        
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
-        }
-        
-        .table-responsive {
-            overflow-x: auto;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: separate;
-            border-spacing: 0;
-            margin-top: 1rem;
-        }
-        
-        thead th {
-            background-color: var(--primary);
-            color: white;
-            padding: 1rem;
-            text-align: left;
-            font-weight: 500;
-        }
-        
-        thead th:first-child {
-            border-top-left-radius: 8px;
-        }
-        
-        thead th:last-child {
-            border-top-right-radius: 8px;
-        }
-        
-        tbody tr {
-            transition: background-color 0.2s ease;
-        }
-        
-        tbody tr:hover {
-            background-color: rgba(67, 97, 238, 0.05);
-        }
-        
-        tbody td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--gray-light);
-            vertical-align: middle;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.35rem 0.65rem;
-            font-size: 0.75rem;
-            font-weight: 600;
-            line-height: 1;
+
+        .section-title {
             text-align: center;
-            white-space: nowrap;
-            vertical-align: baseline;
-            border-radius: 50px;
+            margin-bottom: 60px;
         }
-        
-        .badge-primary {
-            background-color: rgba(67, 97, 238, 0.1);
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 3px;
+            background-color: var(--primary);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-img {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .service-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .service-card:hover .service-img img {
+            transform: scale(1.1);
+        }
+
+        .service-content {
+            padding: 25px;
+        }
+
+        .service-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+
+        .service-content p {
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
             color: var(--primary);
+            margin-bottom: 20px;
         }
-        
-        .badge-success {
-            background-color: rgba(76, 201, 240, 0.1);
-            color: var(--success);
+
+        /* About Section */
+        .about {
+            background-color: var(--dark);
+            color: white;
         }
-        
-        .badge-warning {
-            background-color: rgba(248, 150, 30, 0.1);
-            color: var(--warning);
+
+        .about .section-title h2 {
+            color: white;
         }
-        
-        .badge-diagnostic {
-            background-color: rgba(114, 9, 183, 0.1);
-            color: var(--diagnostic);
+
+        .about .section-title h2::after {
+            background-color: var(--accent);
         }
-        
-        .actions {
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .values-list {
+            margin-top: 30px;
+        }
+
+        .value-item {
             display: flex;
-            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 15px;
         }
-        
-        .action-btn {
-            width: 32px;
-            height: 32px;
+
+        .value-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 168, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            color: white;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
         }
-        
-        .action-btn.edit {
-            background-color: var(--primary);
+
+        .about-img {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-        
-        .action-btn.delete {
-            background-color: var(--danger);
+
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
         }
-        
-        .action-btn.diagnostic {
-            background-color: var(--diagnostic);
+
+        /* Testimonials */
+        .testimonials {
+            background-color: #f9f9f9;
         }
-        
-        .action-btn:hover {
-            transform: scale(1.1);
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
         }
-        
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
+
+        .testimonial-card {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 5rem;
+            color: rgba(0, 168, 255, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .author-img img {
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.5);
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            margin-bottom: 5px;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .rating {
+            color: var(--accent);
+            margin-top: 5px;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: var(--dark);
+            color: white;
+        }
+
+        .contact .section-title h2 {
+            color: white;
+        }
+
+        .contact .section-title h2::after {
+            background-color: var(--accent);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .contact-method {
             display: flex;
-            justify-content: center;
             align-items: center;
-            z-index: 1000;
+            margin-bottom: 20px;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0, 168, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .contact-form textarea {
+            height: 150px;
+            resize: none;
+        }
+
+        .contact-form button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a2229;
+            color: #aaa;
+            padding: 60px 0 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col h3 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-col ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            cursor: pointer;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
+            z-index: 999;
         }
-        
-        .modal.active {
+
+        .back-to-top.active {
             opacity: 1;
             visibility: visible;
         }
-        
-        .modal-content {
-            background-color: white;
-            border-radius: 12px;
-            width: 90%;
-            max-width: 600px;
-            transform: translateY(-20px);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-        
-        .modal-lg .modal-content {
-            max-width: 800px;
-        }
-        
-        .modal.active .modal-content {
-            transform: translateY(0);
-        }
-        
-        .modal-header {
-            padding: 1.5rem;
-            border-bottom: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background-color: white;
-            z-index: 10;
-        }
-        
-        .modal-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: var(--dark);
-        }
-        
-        .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--gray);
-            transition: color 0.3s ease;
-        }
-        
-        .close-btn:hover {
-            color: var(--danger);
-        }
-        
-        .modal-body {
-            padding: 1.5rem;
-        }
-        
-        .modal-footer {
-            padding: 1rem 1.5rem;
-            border-top: 1px solid var(--gray-light);
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            position: sticky;
-            bottom: 0;
-            background-color: white;
-        }
-        
-        .scooter-card {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1.5rem;
-            background-color: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            transition: all 0.3s ease;
-            margin-bottom: 1.5rem;
-        }
-        
-        .scooter-card:hover {
+
+        .back-to-top:hover {
+            background-color: var(--secondary);
             transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.1);
         }
-        
-        .scooter-icon {
-            width: 60px;
-            height: 60px;
-            background-color: rgba(67, 97, 238, 0.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
-            font-size: 1.5rem;
-        }
-        
-        .scooter-info {
-            flex-grow: 1;
-        }
-        
-        .scooter-info h4 {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            color: var(--dark);
-        }
-        
-        .scooter-info p {
-            color: var(--gray);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .scooter-meta {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.5rem;
-        }
-        
-        .scooter-meta span {
-            font-size: 0.8rem;
-            color: var(--gray);
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        .scooter-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .diagnostic-section {
-            margin-top: 2rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--gray-light);
-        }
-        
-        .diagnostic-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid var(--gray-light);
-        }
-        
-        .diagnostic-item:last-child {
-            border-bottom: none;
-        }
-        
-        .diagnostic-item .label {
-            font-weight: 500;
-            color: var(--dark);
-        }
-        
-        .diagnostic-item .value {
-            font-weight: 600;
-        }
-        
-        .status-indicator {
-            display: inline-block;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-        }
-        
-        .status-good {
-            background-color: var(--success);
-        }
-        
-        .status-warning {
-            background-color: var(--warning);
-        }
-        
-        .status-critical {
-            background-color: var(--danger);
-        }
-        
-        .progress-container {
-            width: 100%;
-            background-color: var(--gray-light);
-            border-radius: 8px;
-            margin: 0.5rem 0;
-        }
-        
-        .progress-bar {
-            height: 8px;
-            border-radius: 8px;
-            background-color: var(--primary);
-        }
-        
-        .health-score {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-align: center;
-            margin: 1rem 0;
-        }
-        
-        .health-description {
-            text-align: center;
-            color: var(--gray);
-            margin-bottom: 1.5rem;
-        }
-        
-        @media (max-width: 768px) {
-            .profile-grid {
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .about-content,
+            .contact-grid {
                 grid-template-columns: 1fr;
             }
-            
-            .card {
-                padding: 1.5rem;
+
+            .about-img {
+                order: -1;
             }
-            
-            header {
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 80px);
+                background-color: var(--dark);
                 flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
+                align-items: center;
+                padding: 40px 0;
+                transition: all 0.5s ease;
             }
-            
-            .user-actions {
+
+            nav.active {
+                left: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
                 width: 100%;
-                justify-content: space-between;
             }
-            
-            .scooter-card {
+
+            nav ul li {
+                margin: 15px 0;
+                text-align: center;
+            }
+
+            .section {
+                padding: 70px 0;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .btn-group {
+                display: flex;
                 flex-direction: column;
-                align-items: flex-start;
+                gap: 15px;
             }
-            
-            .scooter-actions {
+
+            .btn-outline {
                 margin-left: 0;
-                width: 100%;
-                justify-content: flex-end;
             }
-            
-            .modal-content {
-                width: 95%;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">
+    <!-- Header -->
+        <header id="header">
+        <div class="container header-container" style="display: flex; justify-content: space-between; align-items: center;">
+            
+            {{-- Logo a la izquierda --}}
+            <a href="#" class="logo" style="display: flex; align-items: center; gap: 8px;">
                 <i class="fas fa-bolt"></i>
-                <span>Electric House</span>
-            </div>
-            <div class="user-actions">
-                <button class="btn btn-outline">
-                    <i class="fas fa-bell"></i>
-                </button>
-                <button class="btn btn-outline">
-                    <i class="fas fa-cog"></i>
-                </button>
-            </div>
-        </header>
-        
-        <!-- Sección de Perfil -->
-        <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <i class="fas fa-user-circle"></i>
-                    Mi Perfil
-                </h2>
-                <button class="btn btn-primary" id="editProfileBtn">
-                    <i class="fas fa-edit"></i>
-                    Editar Perfil
-                </button>
-            </div>
-            
-            <div class="profile-grid">
-                <div class="form-group">
-                    <label>Nombre Completo</label>
-                    <input type="text" class="form-control" value="Juan Pérez Rodríguez" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Correo Electrónico</label>
-                    <input type="email" class="form-control" value="juan.perez@example.com" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Teléfono</label>
-                    <input type="tel" class="form-control" value="+52 55 1234 5678" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Dirección</label>
-                    <input type="text" class="form-control" value="Av. Reforma 123, CDMX" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Fecha de Registro</label>
-                    <input type="text" class="form-control" value="15 de Marzo, 2023" readonly>
-                </div>
-                <div class="form-group">
-                    <label>Estado de Cuenta</label>
-                    <input type="text" class="form-control" value="Activa" readonly>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sección de Patinetas -->
-        <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <i class="fas fa-scooter"></i>
-                    Mis Patinetas
-                </h2>
-                <button class="btn btn-primary" id="addScooterBtn">
-                    <i class="fas fa-plus"></i>
-                    Agregar Patineta
-                </button>
-            </div>
-            
-            <div class="scooter-card">
-                <div class="scooter-icon">
-                    <i class="fas fa-bolt"></i>
-                </div>
-                <div class="scooter-info">
-                    <h4>Xiaomi Mi Scooter Pro 2</h4>
-                    <p>Número de serie: PSXIA123456789</p>
-                    <div class="scooter-meta">
-                        <span><i class="fas fa-palette"></i> Negro mate</span>
-                        <span><i class="fas fa-calendar-alt"></i> Registrada: 15/03/2023</span>
-                        <span class="badge badge-diagnostic"><i class="fas fa-heartbeat"></i> Salud: 82%</span>
-                    </div>
-                </div>
-                <div class="scooter-actions">
-                    <button class="action-btn edit">
-                        <i class="fas fa-pencil-alt"></i>
+                <span>ElectricHouse</span>
+            </a>
+
+            {{-- Menú para móviles --}}
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+
+            {{-- Navegación principal --}}
+            <nav id="nav">
+                <ul style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0;">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#services">Servicios</a></li>
+                    <li><a href="#about">Nosotros</a></li>
+                    <li><a href="#testimonials">Testimonios</a></li>
+                    <li><a href="#contact">Contacto</a></li>
+                </ul>
+            </nav>
+
+            {{-- Usuario e icono y cerrar sesión a la derecha --}}
+            <div class="user-session" style="display: flex; align-items: center; gap: 15px; margin-left: 60px;">
+                <span style="font-weight: bold; color: white;">
+                    {{ session('usuario')->nombre_usuario }}
+                </span>
+                <i class="fas fa-user-circle" style="font-size: 20px; color: white;"></i>
+
+                <form action="{{ route('logout') }}" method="GET" onsubmit="return confirm('¿Cerrar sesión?')">
+                    <button type="submit" style="background: none; border: none; color: white; font-size: 14px; cursor: pointer;">
+                        Cerrar sesión
                     </button>
-                    <button class="action-btn diagnostic" id="viewDiagnostic1">
-                        <i class="fas fa-chart-line"></i>
-                    </button>
-                    <button class="action-btn delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-            
-            <div class="scooter-card">
-                <div class="scooter-icon" style="background-color: rgba(248, 150, 30, 0.1); color: var(--warning);">
-                    <i class="fas fa-scooter"></i>
-                </div>
-                <div class="scooter-info">
-                    <h4>Segway Ninebot MAX</h4>
-                    <p>Número de serie: PSSEG987654321</p>
-                    <div class="scooter-meta">
-                        <span><i class="fas fa-palette"></i> Blanco perla</span>
-                        <span><i class="fas fa-calendar-alt"></i> Registrada: 22/05/2023</span>
-                        <span class="badge badge-diagnostic"><i class="fas fa-heartbeat"></i> Salud: 64%</span>
-                    </div>
-                </div>
-                <div class="scooter-actions">
-                    <button class="action-btn edit">
-                        <i class="fas fa-pencil-alt"></i>
-                    </button>
-                    <button class="action-btn diagnostic" id="viewDiagnostic2">
-                        <i class="fas fa-chart-line"></i>
-                    </button>
-                    <button class="action-btn delete">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Sección de Citas -->
-        <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">
-                    <i class="fas fa-calendar-check"></i>
-                    Mis Citas de Servicio
-                </h2>
-                <button class="btn btn-primary" id="addAppointmentBtn">
-                    <i class="fas fa-plus"></i>
-                    Nueva Cita
-                </button>
-            </div>
-            
-            <div class="table-responsive">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Patineta</th>
-                            <th>Servicio</th>
-                            <th>Estado</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <strong>10 Jun 2023</strong><br>
-                                <small>10:00 - 11:00 AM</small>
-                            </td>
-                            <td>Xiaomi Mi Scooter Pro 2</td>
-                            <td>Mantenimiento general</td>
-                            <td><span class="badge badge-primary">Confirmada</span></td>
-                            <td>
-                                <div class="actions">
-                                    <button class="action-btn edit">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="action-btn delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>25 Jun 2023</strong><br>
-                                <small>03:30 - 04:30 PM</small>
-                            </td>
-                            <td>Segway Ninebot MAX</td>
-                            <td>Cambio de batería</td>
-                            <td><span class="badge badge-warning">Pendiente</span></td>
-                            <td>
-                                <div class="actions">
-                                    <button class="action-btn edit">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="action-btn delete">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <strong>05 Jul 2023</strong><br>
-                                <small>09:00 - 10:00 AM</small>
-                            </td>
-                            <td>Xiaomi Mi Scooter Pro 2</td>
-                            <td>Revisión de frenos</td>
-                            <td><span class="badge badge-success">Completada</span></td>
-                            <td>
-                                <div class="actions">
-                                    <button class="action-btn edit">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </button>
-                                    <button class="btn btn-diagnostic" style="padding: 0.3rem 0.6rem; font-size: 0.8rem;">
-                                        <i class="fas fa-file-alt"></i> Ver Diagnóstico
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal Editar Perfil -->
-    <div class="modal" id="profileModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-user-edit"></i>
-                    Editar Perfil
-                </h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="profileForm">
-                    <div class="form-group">
-                        <label>Nombre Completo</label>
-                        <input type="text" class="form-control" value="Juan Pérez Rodríguez">
-                    </div>
-                    <div class="form-group">
-                        <label>Correo Electrónico</label>
-                        <input type="email" class="form-control" value="juan.perez@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label>Teléfono</label>
-                        <input type="tel" class="form-control" value="+52 55 1234 5678">
-                    </div>
-                    <div class="form-group">
-                        <label>Dirección</label>
-                        <textarea class="form-control" rows="3">Av. Reforma 123, CDMX</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>Nueva Contraseña</label>
-                        <input type="password" class="form-control" placeholder="Dejar en blanco para no cambiar">
-                    </div>
-                    <div class="form-group">
-                        <label>Confirmar Contraseña</label>
-                        <input type="password" class="form-control">
-                    </div>
                 </form>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelProfileEdit">
-                    Cancelar
-                </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-save"></i>
-                    Guardar Cambios
-                </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Mantenimiento Profesional de Patinetas Eléctricas</h1>
+                <p>Seguridad y Rendimiento Óptimo en Cada Viaje. Prepárate para vivir la máxima emoción en cada trayecto. Con un equipo de expertos apasionados y tecnología avanzada, te garantizamos un rendimiento impecable y una seguridad total.</p>
+                <div class="btn-group">
+                    <a href="#services" class="btn">Nuestros Servicios</a>
+                    <a href="#contact" class="btn btn-outline">Contacto</a>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Modal Agregar Patineta -->
-    <div class="modal" id="scooterModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-scooter"></i>
-                    Agregar Patineta
-                </h3>
-                <button class="close-btn">&times;</button>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section" id="services">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Nuestros Servicios</h2>
+                <p>Ofrecemos una gama completa de servicios de mantenimiento, reparación y personalización</p>
             </div>
-            <div class="modal-body">
-                <form id="scooterForm">
-                    <div class="form-group">
-                        <label>Marca</label>
-                        <select class="form-control">
-                            <option>Seleccionar marca</option>
-                            <option>Xiaomi</option>
-                            <option>Segway</option>
-                            <option>Ninebot</option>
-                            <option>Dualtron</option>
-                            <option>Otra</option>
+            <div class="services-grid">
+                <div class="service-card fade-in delay-1">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1621570399104-9b59f6e738c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Mantenimiento Preventivo">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Mantenimiento Preventivo</h3>
+                        <p>Revisión general de componentes, lubricación y revisión del sistema eléctrico y batería.</p>
+                        <a href="{{ route('vista') }}" class="btn">Solicitar</a>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in delay-2">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Mantenimiento Correctivo">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3>Mantenimiento Correctivo</h3>
+                        <p>Reparación de batería, cambio de llantas, reparación de frenos y componentes eléctricos.</p>
+                        <a href="{{ route('vista') }}" class="btn">Solicitar</a>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in delay-3">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1621571019189-0a9d1c43e0af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Personalización">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3>Personalización</h3>
+                        <p>Actualización de motores, baterías, personalización estética y adición de accesorios.</p>
+                        <a href="{{ route('vista') }}" class="btn">Solicitar</a>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in delay-4">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1631729370904-2f936fafebb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Diagnóstico avanzado">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>Diagnóstico Avanzado</h3>
+                        <p>Diagnóstico detallado de fallas eléctricas y mecánicas con herramientas especializadas.</p>
+                        <a href="{{ route('vista') }}" class="btn">Solicitar</a>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in delay-1">
+                    <div class="service-img">
+                        <img src="https://images.unsplash.com/photo-1621570399104-9b59f6e738c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Venta de repuestos">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Venta de Repuestos</h3>
+                        <p>Repuestos originales y venta de accesorios como luces, frenos y protectores.</p>
+                        <a href="{{ route('vista') }}" class="btn">Solicitar</a>
+                    </div>
+                </div>
+                
+                <div class="service-card fade-in delay-2">
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3>Servicio a Domicilio</h3>
+                        <p>Nuestro equipo de expertos está listo para ayudarte a encontrar el repuesto adecuado y brindarte asesoramiento especializado.</p>
+                        <a href="{{ route('vista') }}" class="btn">Solicitar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Sobre Nosotros</h2>
+            </div>
+            <div class="about-content">
+                <div class="about-text fade-in delay-1">
+                    <h3>Expertos en Movilidad Sostenible</h3>
+                    <p>Somos una empresa apasionada por la movilidad sostenible y la innovación tecnológica. Nos especializamos en el mantenimiento, personalización y optimización de patinetas eléctricas para garantizar un rendimiento óptimo y seguro.</p>
+                    <p>Nuestro equipo está compuesto por expertos en electrónica, mecánica y diseño, siempre enfocados en ofrecer soluciones de alta calidad para mejorar la experiencia de nuestros clientes.</p>
+                    
+                    <div class="values-list">
+                        <h4>Nuestros Valores</h4>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div>
+                                <h5>Compromiso con la calidad</h5>
+                                <p>Garantizamos el más alto estándar en todos nuestros servicios.</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-lightbulb"></i>
+                            </div>
+                            <div>
+                                <h5>Innovación constante</h5>
+                                <p>Siempre buscamos las mejores soluciones tecnológicas.</p>
+                            </div>
+                        </div>
+                        <div class="value-item">
+                            <div class="value-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div>
+                                <h5>Atención al cliente excepcional</h5>
+                                <p>Tu satisfacción es nuestra prioridad.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-img fade-in delay-2">
+                    <img src="https://images.unsplash.com/photo-1621570366646-bf3a1b8d0f6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Equipo de ElectroSkate Care">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Lo que dicen nuestros clientes</h2>
+                <p>Experiencias reales de usuarios satisfechos con nuestros servicios</p>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in delay-1">
+                    <div class="testimonial-content">
+                        <p>Excelente servicio! Mi patineta quedó como nueva después del mantenimiento. El equipo es muy profesional y conocedor. Definitivamente los recomiendo.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Carlos M.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Carlos M.</h4>
+                            <p>Usuario frecuente</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in delay-2">
+                    <div class="testimonial-content">
+                        <p>Rápido, eficiente y con excelentes resultados. Solucionaron un problema eléctrico que otros no pudieron diagnosticar. Muy contento con el servicio.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ana L.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Ana L.</h4>
+                            <p>Primera vez</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card fade-in delay-3">
+                    <div class="testimonial-content">
+                        <p>La personalización que hicieron de mi patineta superó todas mis expectativas. No solo mejoró el rendimiento sino que ahora tiene un look increíble.</p>
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-img">
+                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Javier R.">
+                        </div>
+                        <div class="author-info">
+                            <h4>Javier R.</h4>
+                            <p>Cliente frecuente</p>
+                            <div class="rating">
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star"></i>
+                                <i class="fas fa-star-half-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Contacto</h2>
+                <p>Estamos listos para atenderte y resolver todas tus dudas</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-in delay-1">
+                    <h3>Información de Contacto</h3>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Dirección</h4>
+                            <p>Calle Innovación 123, Tech District, Ciudad</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div>
+                            <h4>Teléfono</h4>
+                            <p>+1 234 567 890</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@electroskatecare.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Horario</h4>
+                            <p>Lunes a Viernes: 9am - 6pm<br>Sábados: 10am - 2pm</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form fade-in delay-2">
+                    <form id="contactForm">
+                        <input type="text" placeholder="Nombre completo" required>
+                        <input type="email" placeholder="Correo electrónico" required>
+                        <input type="tel" placeholder="Teléfono (opcional)">
+                        <select required>
+                            <option value="" disabled selected>Selecciona un servicio</option>
+                            <option>Mantenimiento Preventivo</option>
+                            <option>Mantenimiento Correctivo</option>
+                            <option>Personalización</option>
+                            <option>Diagnóstico Avanzado</option>
+                            <option>Venta de Repuestos</option>
+                            <option>Servicio a Domicilio</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Modelo</label>
-                        <input type="text" class="form-control" placeholder="Ej. Mi Scooter Pro 2">
-                    </div>
-                    <div class="form-group">
-                        <label>Número de Serie</label>
-                        <input type="text" class="form-control" placeholder="PS123456789">
-                    </div>
-                    <div class="form-group">
-                        <label>Color</label>
-                        <input type="text" class="form-control" placeholder="Ej. Negro mate">
-                    </div>
-                    <div class="form-group">
-                        <label>Fecha de Compra</label>
-                        <input type="date" class="form-control">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelScooterAdd">
-                    Cancelar
-                </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-plus"></i>
-                    Agregar Patineta
-                </button>
+                        <textarea placeholder="Tu mensaje" required></textarea>
+                        <button type="submit">Enviar Mensaje</button>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-    
-    <!-- Modal Diagnóstico de Patineta -->
-    <div class="modal" id="diagnosticModal">
-        <div class="modal-content modal-lg">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-chart-line"></i>
-                    Diagnóstico de Patineta
-                </h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="scooter-info" style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
-                    <div class="scooter-icon" style="width: 50px; height: 50px; font-size: 1.2rem;">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div>
-                        <h4 style="margin-bottom: 0.2rem;">Xiaomi Mi Scooter Pro 2</h4>
-                        <p style="color: var(--gray); font-size: 0.9rem;">Número de serie: PSXIA123456789</p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h3>ElectroSkate Care</h3>
+                    <p>Expertos en mantenimiento y reparación de patinetas eléctricas. Garantizamos seguridad y máximo rendimiento en cada viaje.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
-                
-                <div style="background-color: rgba(67, 97, 238, 0.05); border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem;">
-                    <div class="health-score">82%</div>
-                    <div class="health-description">Estado general de la patineta: Bueno</div>
-                    <div class="progress-container">
-                        <div class="progress-bar" style="width: 82%;"></div>
-                    </div>
+                <div class="footer-col">
+                    <h3>Servicios</h3>
+                    <ul>
+                        <li><a href="#">Mantenimiento Preventivo</a></li>
+                        <li><a href="#">Mantenimiento Correctivo</a></li>
+                        <li><a href="#">Personalización</a></li>
+                        <li><a href="#">Diagnóstico Avanzado</a></li>
+                        <li><a href="#">Venta de Repuestos</a></li>
+                    </ul>
                 </div>
-                
-                <h4 style="margin-bottom: 1rem; color: var(--dark);">Detalles del Diagnóstico</h4>
-                
-                <div class="diagnostic-section">
-                    <div class="diagnostic-item">
-                        <span class="label"><span class="status-indicator status-good"></span> Batería</span>
-                        <span class="value">85% capacidad</span>
-                    </div>
-                    <div class="diagnostic-item">
-                        <span class="label"><span class="status-indicator status-good"></span> Motor</span>
-                        <span class="value">Óptimo funcionamiento</span>
-                    </div>
-                    <div class="diagnostic-item">
-                        <span class="label"><span class="status-indicator status-warning"></span> Frenos</span>
-                        <span class="value">Pastillas al 65%</span>
-                    </div>
-                    <div class="diagnostic-item">
-                        <span class="label"><span class="status-indicator status-good"></span> Neumáticos</span>
-                        <span class="value">Presión correcta</span>
-                    </div>
-                    <div class="diagnostic-item">
-                        <span class="label"><span class="status-indicator status-critical"></span> Suspensión</span>
-                        <span class="value">Requiere revisión</span>
-                    </div>
+                <div class="footer-col">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul>
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#services">Servicios</a></li>
+                        <li><a href="#about">Nosotros</a></li>
+                        <li><a href="#testimonials">Testimonios</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
                 </div>
-                
-                <div class="diagnostic-section">
-                    <h5 style="margin-bottom: 1rem; color: var(--dark);">Últimos Servicios</h5>
-                    <div class="diagnostic-item">
-                        <span class="label">05 Jul 2023</span>
-                        <span class="value">Revisión de frenos</span>
-                    </div>
-                    <div class="diagnostic-item">
-                        <span class="label">15 Abr 2023</span>
-                        <span class="value">Cambio de batería</span>
-                    </div>
-                    <div class="diagnostic-item">
-                        <span class="label">10 Ene 2023</span>
-                        <span class="value">Mantenimiento general</span>
-                    </div>
-                </div>
-                
-                <div class="diagnostic-section">
-                    <h5 style="margin-bottom: 1rem; color: var(--dark);">Recomendaciones</h5>
-                    <ul style="padding-left: 1.5rem; color: var(--gray);">
-                        <li style="margin-bottom: 0.5rem;">Reemplazar pastillas de freno en los próximos 200km</li>
-                        <li style="margin-bottom: 0.5rem;">Revisar sistema de suspensión lo antes posible</li>
-                        <li style="margin-bottom: 0.5rem;">Calibrar neumáticos cada 2 meses</li>
+                <div class="footer-col">
+                    <h3>Contacto</h3>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Calle Innovación 123, Ciudad</li>
+                        <li><i class="fas fa-phone-alt"></i> +1 234 567 890</li>
+                        <li><i class="fas fa-envelope"></i> info@electroskatecare.com</li>
                     </ul>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelDiagnostic">
-                    Cerrar
-                </button>
-                <button class="btn btn-primary">
-                    <i class="fas fa-calendar-alt"></i>
-                    Agendar Servicio
-                </button>
+            <div class="copyright">
+                <p>&copy; 2023 ElectroSkate Care. Todos los derechos reservados.</p>
             </div>
         </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
     </div>
-    
-    <!-- Modal Confirmación Eliminar -->
-    <div class="modal" id="confirmModal">
-        <div class="modal-content" style="max-width: 400px;">
-            <div class="modal-header">
-                <h3 class="modal-title">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    Confirmar Eliminación
-                </h3>
-                <button class="close-btn">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>¿Estás seguro que deseas eliminar este elemento? Esta acción no se puede deshacer.</p>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-outline" id="cancelDelete">
-                    Cancelar
-                </button>
-                <button class="btn btn-danger">
-                    <i class="fas fa-trash"></i>
-                    Eliminar
-                </button>
-            </div>
-        </div>
-    </div>
-    
+
     <script>
-        // Funcionalidad de los modales
-        document.addEventListener('DOMContentLoaded', function() {
-            // Elementos del DOM
-            const profileModal = document.getElementById('profileModal');
-            const scooterModal = document.getElementById('scooterModal');
-            const diagnosticModal = document.getElementById('diagnosticModal');
-            const confirmModal = document.getElementById('confirmModal');
-            
-            const editProfileBtn = document.getElementById('editProfileBtn');
-            const addScooterBtn = document.getElementById('addScooterBtn');
-            const addAppointmentBtn = document.getElementById('addAppointmentBtn');
-            const viewDiagnostic1 = document.getElementById('viewDiagnostic1');
-            const viewDiagnostic2 = document.getElementById('viewDiagnostic2');
-            
-            const closeBtns = document.querySelectorAll('.close-btn');
-            const cancelProfileEdit = document.getElementById('cancelProfileEdit');
-            const cancelScooterAdd = document.getElementById('cancelScooterAdd');
-            const cancelDiagnostic = document.getElementById('cancelDiagnostic');
-            const cancelDelete = document.getElementById('cancelDelete');
-            
-            // Abrir modales
-            editProfileBtn.addEventListener('click', () => toggleModal(profileModal));
-            addScooterBtn.addEventListener('click', () => toggleModal(scooterModal));
-            addAppointmentBtn.addEventListener('click', () => toggleModal(scooterModal));
-            viewDiagnostic1.addEventListener('click', () => toggleModal(diagnosticModal));
-            viewDiagnostic2.addEventListener('click', () => {
-                // Cambiar datos para la segunda patineta
-                const modal = diagnosticModal;
-                modal.querySelector('.scooter-icon').style.backgroundColor = 'rgba(248, 150, 30, 0.1)';
-                modal.querySelector('.scooter-icon').style.color = 'var(--warning)';
-                modal.querySelector('h4').textContent = 'Segway Ninebot MAX';
-                modal.querySelector('p').textContent = 'Número de serie: PSSEG987654321';
-                modal.querySelector('.health-score').textContent = '64%';
-                modal.querySelector('.health-description').textContent = 'Estado general de la patineta: Requiere atención';
-                modal.querySelector('.progress-bar').style.width = '64%';
-                
-                // Actualizar items de diagnóstico
-                const diagnosticItems = modal.querySelectorAll('.diagnostic-item');
-                diagnosticItems[0].querySelector('.value').textContent = '72% capacidad';
-                diagnosticItems[1].querySelector('.value').textContent = 'Funcionamiento normal';
-                diagnosticItems[2].querySelector('.value').textContent = 'Pastillas al 40%';
-                diagnosticItems[3].querySelector('.value').textContent = 'Presión baja';
-                diagnosticItems[4].querySelector('.value').textContent = 'Requiere reemplazo';
-                
-                // Cambiar indicadores de estado
-                const statusIndicators = modal.querySelectorAll('.status-indicator');
-                statusIndicators[0].className = 'status-indicator status-warning';
-                statusIndicators[1].className = 'status-indicator status-good';
-                statusIndicators[2].className = 'status-indicator status-critical';
-                statusIndicators[3].className = 'status-indicator status-warning';
-                statusIndicators[4].className = 'status-indicator status-critical';
-                
-                toggleModal(modal);
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const nav = document.getElementById('nav');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = nav.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking on a link
+        const navLinks = document.querySelectorAll('nav ul li a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             });
-            
-            // Cerrar modales
-            closeBtns.forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.modal').forEach(modal => {
-                        modal.classList.remove('active');
-                    });
-                });
-            });
-            
-            cancelProfileEdit.addEventListener('click', () => toggleModal(profileModal));
-            cancelScooterAdd.addEventListener('click', () => toggleModal(scooterModal));
-            cancelDiagnostic.addEventListener('click', () => toggleModal(diagnosticModal));
-            cancelDelete.addEventListener('click', () => toggleModal(confirmModal));
-            
-            // Botones de acción en las tablas/tarjetas
-            document.querySelectorAll('.action-btn.edit').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    toggleModal(profileModal); // o scooterModal según corresponda
-                });
-            });
-            
-            document.querySelectorAll('.action-btn.delete').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    toggleModal(confirmModal);
-                });
-            });
-            
-            // Función para alternar modales
-            function toggleModal(modal) {
-                modal.classList.toggle('active');
+        });
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
             }
-            
-            // Cerrar modal al hacer clic fuera del contenido
-            window.addEventListener('click', function(e) {
-                if (e.target.classList.contains('modal')) {
-                    document.querySelectorAll('.modal').forEach(modal => {
-                        modal.classList.remove('active');
+        });
+
+        // Back to top button
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('active');
+            } else {
+                backToTopBtn.classList.remove('active');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
                     });
                 }
             });
-            
-            // Simular envío de formularios
-            document.getElementById('profileForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Perfil actualizado correctamente');
-                toggleModal(profileModal);
-            });
-            
-            document.getElementById('scooterForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Patineta agregada correctamente');
-                toggleModal(scooterModal);
-            });
         });
+
+        // Form submission
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Gracias por tu mensaje. Nos pondremos en contacto contigo pronto.');
+            contactForm.reset();
+        });
+
+        // Animation on scroll
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialize animations
+        window.addEventListener('load', fadeInOnScroll);
+        window.addEventListener('scroll', fadeInOnScroll);
     </script>
 </body>
 </html>
