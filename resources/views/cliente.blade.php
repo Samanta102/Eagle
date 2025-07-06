@@ -128,7 +128,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1621570366646-bf3a1b8d0f6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/fondo-hero.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             text-align: center;
@@ -331,6 +331,20 @@
             height: auto;
             display: block;
         }
+        .about-video {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-video video {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
 
         /* Testimonials */
         .testimonials {
@@ -762,7 +776,7 @@
             <div class="services-grid">
                 <div class="service-card fade-in delay-1">
                     <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1621570399104-9b59f6e738c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Mantenimiento Preventivo">
+                        <img src="images/service1.jpg" alt="Mantenimiento Preventivo">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -776,7 +790,7 @@
                 
                 <div class="service-card fade-in delay-2">
                     <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Mantenimiento Correctivo">
+                        <img src="images/service2.jpg" alt="Mantenimiento Correctivo">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -790,7 +804,7 @@
                 
                 <div class="service-card fade-in delay-3">
                     <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1621571019189-0a9d1c43e0af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Personalización">
+                        <img src="images/service3.png" alt="Personalización">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -804,7 +818,7 @@
                 
                 <div class="service-card fade-in delay-4">
                     <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1631729370904-2f936fafebb4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Diagnóstico avanzado">
+                        <img src="images/service4.jpg" alt="Diagnóstico avanzado">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -818,7 +832,7 @@
                 
                 <div class="service-card fade-in delay-1">
                     <div class="service-img">
-                        <img src="https://images.unsplash.com/photo-1621570399104-9b59f6e738c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Venta de repuestos">
+                        <img src="images/service5.jpg" alt="Venta de repuestos">
                     </div>
                     <div class="service-content">
                         <div class="service-icon">
@@ -862,7 +876,7 @@
                             <div class="value-icon">
                                 <i class="fas fa-star"></i>
                             </div>
-                            <div>
+                            <div> <br>
                                 <h5>Compromiso con la calidad</h5>
                                 <p>Garantizamos el más alto estándar en todos nuestros servicios.</p>
                             </div>
@@ -887,8 +901,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="about-img fade-in delay-2">
-                    <img src="https://images.unsplash.com/photo-1621570366646-bf3a1b8d0f6b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Equipo de ElectroSkate Care">
+                <div class="about-video fade-in delay-2">
+                    <video src="/videos/videoapp.mp4" autoplay muted loop playsinline></video>
                 </div>
             </div>
         </div>
@@ -926,7 +940,7 @@
                 
                 <div class="testimonial-card fade-in delay-2">
                     <div class="testimonial-content">
-                        <p>Rápido, eficiente y con excelentes resultados. Solucionaron un problema eléctrico que otros no pudieron diagnosticar. Muy contento con el servicio.</p>
+                        <p>Rápido, eficiente y con excelentes resultados. Solucionaron un problema eléctrico que otros no pudieron diagnosticar. Muy contenta con el servicio.</p>
                     </div>
                     <div class="testimonial-author">
                         <div class="author-img">
@@ -987,7 +1001,7 @@
                         </div>
                         <div>
                             <h4>Dirección</h4>
-                            <p>Calle Innovación 123, Tech District, Ciudad</p>
+                            <p>Cr 15 #80-60, Chapinero, Bogotá</p>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -996,7 +1010,7 @@
                         </div>
                         <div>
                             <h4>Teléfono</h4>
-                            <p>+1 234 567 890</p>
+                            <p>+57 3203346863</p>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -1005,7 +1019,7 @@
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <p>info@electroskatecare.com</p>
+                            <p>info@electrichouse.com</p>
                         </div>
                     </div>
                     <div class="contact-method">
@@ -1014,16 +1028,17 @@
                         </div>
                         <div>
                             <h4>Horario</h4>
-                            <p>Lunes a Viernes: 9am - 6pm<br>Sábados: 10am - 2pm</p>
+                            <p>Lunes a Viernes: 9am - 6pm<br>Sábados: 9am - 5pm</p>
                         </div>
                     </div>
                 </div>
+
                 <div class="contact-form fade-in delay-2">
                     <form id="contactForm">
-                        <input type="text" placeholder="Nombre completo" required>
-                        <input type="email" placeholder="Correo electrónico" required>
-                        <input type="tel" placeholder="Teléfono (opcional)">
-                        <select required>
+                        <input type="text" name="nombre" placeholder="Nombre completo" required>
+                        <input type="email" name="correo" placeholder="Correo electrónico" required>
+                        <input type="tel" name="telefono" placeholder="Teléfono (opcional)">
+                        <select name="servicio" required>
                             <option value="" disabled selected>Selecciona un servicio</option>
                             <option>Mantenimiento Preventivo</option>
                             <option>Mantenimiento Correctivo</option>
@@ -1032,7 +1047,7 @@
                             <option>Venta de Repuestos</option>
                             <option>Servicio a Domicilio</option>
                         </select>
-                        <textarea placeholder="Tu mensaje" required></textarea>
+                        <textarea name="mensaje" placeholder="Tu mensaje" required></textarea>
                         <button type="submit">Enviar Mensaje</button>
                     </form>
                 </div>
@@ -1040,12 +1055,31 @@
         </div>
     </section>
 
+    <!-- Script para enviar a WhatsApp -->
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const nombre = document.querySelector('[name="nombre"]').value;
+            const correo = document.querySelector('[name="correo"]').value;
+            const telefono = document.querySelector('[name="telefono"]').value;
+            const servicio = document.querySelector('[name="servicio"]').value;
+            const mensaje = document.querySelector('[name="mensaje"]').value;
+
+            const texto = `Hola, me llamo *${nombre}*.%0ACorreo: ${correo}%0ATeléfono: ${telefono}%0AServicio: ${servicio}%0AMensaje: ${mensaje}`;
+            const numero = "573208841934"; // Número de la empresa
+
+            // Redirigir a WhatsApp
+            window.open(`https://wa.me/${numero}?text=${texto}`, "_blank");
+        });
+    </script>
+
     <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <h3>ElectroSkate Care</h3>
+                    <h3>ElectricHouse</h3>
                     <p>Expertos en mantenimiento y reparación de patinetas eléctricas. Garantizamos seguridad y máximo rendimiento en cada viaje.</p>
                     <div class="social-links">
                         <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -1075,14 +1109,14 @@
                 <div class="footer-col">
                     <h3>Contacto</h3>
                     <ul>
-                        <li><i class="fas fa-map-marker-alt"></i> Calle Innovación 123, Ciudad</li>
-                        <li><i class="fas fa-phone-alt"></i> +1 234 567 890</li>
-                        <li><i class="fas fa-envelope"></i> info@electroskatecare.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Cr 15 #80-60</li>
+                        <li><i class="fas fa-phone-alt"></i> +57 3203346863</li>
+                        <li><i class="fas fa-envelope"></i> info@electrichouse.com</li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 ElectroSkate Care. Todos los derechos reservados.</p>
+                <p>&copy; 2025 ElectricHouse. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
