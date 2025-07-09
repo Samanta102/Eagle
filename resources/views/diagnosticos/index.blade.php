@@ -349,7 +349,7 @@
             </li>
             
             <li class="menu-item">
-                <a href="#" class="menu-link">
+                <a href="{{ route('usuarios.index') }}" class="menu-link">
                     <i class="fas fa-users"></i>
                     <span>Usuarios</span>
                 </a>

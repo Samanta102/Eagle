@@ -448,7 +448,7 @@
                     <label for="telefono">Teléfono:</label>
                     <div class="input-field">
                         <i class="fas fa-phone input-icon"></i>
-                        <input type="text" id="telefono" name="telefono" placeholder="+52 55 1234 5678" required>
+                        <input type="text" id="telefono" name="telefono" placeholder="+57" required>
                     </div>
                 </div>
                 <div class="form-group">

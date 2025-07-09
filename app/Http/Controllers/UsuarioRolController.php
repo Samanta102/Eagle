@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use App\Models\Rol;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; 
 
 class UsuarioRolController extends Controller
 {

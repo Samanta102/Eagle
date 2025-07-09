@@ -127,29 +127,67 @@
 
         /* Hero Section */
         .hero {
+            position: relative;
+            overflow: hidden;
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('/images/fondo-hero.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
             padding-top: 80px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .hero-backgrounds {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: opacity 1.5s ease-in-out;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .bg-image.active {
+            opacity: 1;
+            z-index: 1;
         }
 
         .hero-content {
+            position: relative;
+            z-index: 2;
             max-width: 800px;
             margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.3); /* fondo semitransparente */
+            padding: 30px;
+            border-radius: 10px;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
             line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* sombra al texto */
         }
 
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* sombra al texto */
         }
 
         .btn {
@@ -725,7 +763,7 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-            {{-- Navegación principal --}}
+            {{-- Navegación principal --}} 
             <nav id="nav">
                 <ul style="display: flex; gap: 20px; list-style: none; padding: 0; margin: 0;">
                     <li><a href="#home">Inicio</a></li>
@@ -754,6 +792,11 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
+        <div class="hero-backgrounds">
+            <div class="bg-image" style="background-image: url('/images/fondo-hero.jpg');"></div>
+            <div class="bg-image" style="background-image: url('/images/fondo-hero2.avif');"></div>
+            <div class="bg-image" style="background-image: url('/images/fondo-hero3.jpg');"></div>
+        </div>
         <div class="container">
             <div class="hero-content fade-in">
                 <h1>Mantenimiento Profesional de Patinetas Eléctricas</h1>
@@ -765,6 +808,23 @@
             </div>
         </div>
     </section>
+
+<!-- Script para cambiar automáticamente el fondo -->
+        <script>
+            const images = document.querySelectorAll('.bg-image');
+            let current = 0;
+
+            function showNextImage() {
+                images[current].classList.remove('active');
+                current = (current + 1) % images.length;
+                images[current].classList.add('active');
+            }
+
+            images[current].classList.add('active'); // mostrar la primera al cargar
+            setInterval(showNextImage, 5000); // cambiar cada 5 segundos
+        </script>
+
+
 
     <!-- Services Section -->
     <section class="section" id="services">
