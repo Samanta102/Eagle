@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         $usuario = Usuario::with('rol')
             ->where('doc_identidad', $request->doc_identidad)
-            ->where('contrasena', $request->contrasena) // ⚠️ Solo si no está encriptada
+            // ->where('contrasena', $request->contrasena) // ⚠️ Solo si no está encriptada
             ->first();
 
         if ($usuario) {
@@ -77,7 +77,7 @@ class AuthController extends Controller
             'direccion'       => $request->direccion,
             'telefono'        => $request->telefono,
             'correo'          => $request->correo,
-            'contrasena'      => $request->contrasena, // ⚠️ sin encriptar
+            'contrasena'      => bcrypt($request->contrasena), // Se encripta
         ]);
 
         $usuario->save();
