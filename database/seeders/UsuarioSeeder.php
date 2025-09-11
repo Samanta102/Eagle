@@ -21,14 +21,14 @@ class UsuarioSeeder extends Seeder
                 'contrasena' => bcrypt('123456')
             ],
             [
-                'id_rol' => 2,
-                'nombre_usuario' => 'Carlos',
-                'apellido' => 'Gómez',
-                'doc_identidad' => '987654321',
+                'id_rol' => 1,
+                'nombre_usuario' => 'Richard',
+                'apellido' => 'Lotte',
+                'doc_identidad' => '44',
                 'direccion' => 'Carrera 7 #12-34',
                 'telefono' => '3012345678',
-                'correo' => 'carlos@example.com',
-                'contrasena' => bcrypt('123456')
+                'correo' => 'richi@example.com',
+                'contrasena' => bcrypt('Rich1234')
             ],
             [
                 'id_rol' => 3,
