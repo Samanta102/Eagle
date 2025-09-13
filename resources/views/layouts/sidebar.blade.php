@@ -1,66 +1,85 @@
 {{-- filepath: resources/views/layouts/sidebar.blade.php --}}
-<ul class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
-    <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('dashboard') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-        <i class="fas fa-tools" style="font-size: 2rem; color: #fff;"></i>
-        </div>
-        <span class="sidebar-brand-text mx-2">EAGLE TALLER</span>
-    </a>
 
-    <hr class="sidebar-divider my-0">
+<aside class="sidebar">
 
-    <!-- Dashboard -->
-    <li class="nav-item mt-2 mb-2">
-        <a class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}" href="{{ route('dashboard') }}">
-        <i class="fas fa-tachometer-alt"></i>
-        <span>Dashboard</span>
-        </a>
-    </li>
+    <ul class="sidebar-menu">
 
-    <hr class="sidebar-divider">
+        <li class="menu-item">
+            <a href="{{ route('dashboard') }}" class="menu-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <i class="fas fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
 
-    <div class="sidebar-heading">Módulos</div>
+        <li class="menu-item">
+            <a href="{{ route('usuarios.index') }}" class="menu-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
+                <i class="fas fa-users"></i>
+                <span>Usuarios</span>
+            </a>
+        </li>
 
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}" href="{{ route('usuarios.index') }}">
-        <i class="fas fa-users"></i>
-        <span>Usuarios</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('patinetas.*') ? 'active' : '' }}" href="{{ route('patinetas.index') }}">
-        <i class="fas fa-motorcycle"></i>
-        <span>Patinetas</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('diagnosticos.*') ? 'active' : '' }}" href="{{ route('diagnosticos.index') }}">
-        <i class="fas fa-file-medical"></i>
-        <span>Diagnósticos</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('ordenes_servicio.*') ? 'active' : '' }}" href="{{ route('ordenes_servicio.index') }}">
-        <i class="fas fa-clipboard-list"></i>
-        <span>Órdenes de Servicio</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('mantenimientos.*') ? 'active' : '' }}" href="{{ route('mantenimientos.index') }}">
-        <i class="fas fa-tools"></i>
-        <span>Mantenimientos</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ request()->routeIs('productos.*') ? 'active' : '' }}" href="{{ route('productos.index') }}">
-        <i class="fas fa-boxes"></i>
-        <span>Productos</span>
-        </a>
-    </li>
+        <li class="menu-item">
+            <a href="{{ route('patinetas.index') }}" class="menu-link {{ request()->routeIs('patinetas.*') ? 'active' : '' }}">
+                <i class="fas fa-motorcycle"></i>
+                <span>Patinetas</span>
+            </a>
+        </li>
 
-    <hr class="sidebar-divider mt-3">
-    <div class="text-center d-none d-md-inline">
-        <button class="rounded-corner border-0" id="sidebarToggle"></button>
-    </div>
-</ul>
+        <li class="menu-item">
+            <a href="{{ route('citas.index') }}" class="menu-link">
+                <i class="fas fa-calendar-check"></i>
+                <span>Citas</span>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="{{ route('diagnosticos.index') }}" class="menu-link {{ request()->routeIs('diagnosticos.*') ? 'active' : '' }}">
+                <i class="fas fa-file-medical"></i>
+                <span>Diagnósticos</span>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="{{ route('ordenes_servicio.index') }}" class="menu-link {{ request()->routeIs('ordenes_servicio.*') ? 'active' : '' }}">
+                <i class="fas fa-clipboard-list"></i>
+                <span>Órdenes de Servicio</span>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="{{ route('mantenimientos.index') }}" class="menu-link {{ request()->routeIs('mantenimientos.*') ? 'active' : '' }}">
+                <i class="fas fa-tools"></i>
+                <span>Mantenimientos</span>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="{{ route('productos.index') }}" class="menu-link {{ request()->routeIs('productos.*') ? 'active' : '' }}">
+                <i class="fas fa-boxes"></i>
+                <span>Productos</span>
+            </a>
+        </li>
+
+        <li class="menu-item">
+            <a href="{{ route('formas_pago.index') }}" class="menu-link">
+                <i class="fas fa-credit-card"></i>
+                <span>Tipos de Pago</span>
+            </a>
+        </li>
+        
+        <li class="menu-item">
+            <a href="{{ route('tipos-iva.index') }}" class="menu-link">
+                <i class="fas fa-percentage"></i>
+                <span>Tipos de IVA</span>
+            </a>
+        </li>
+
+    </ul>
+
+    {{-- <div>
+        <form action="{{ route('logout') }}" method="GET" onsubmit="return confirm('¿Cerrar sesión?')">
+            <button type="submit" style="width: 100%; padding: 10px 0; background-color: #3498db; color: #fff; border: none; border-radius: 6px; font-weight: 600; font-size: 1rem; cursor: pointer; margin-bottom: 10px;">Cerrar sesión</button>
+        </form>
+    </div> --}}
+
+</aside>

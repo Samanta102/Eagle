@@ -1,0 +1,34 @@
+/* global-variables.css: Variables globales para todo el proyecto Eagle Taller */
+
+:root {
+    --primary-color: #3498db;
+    --primary-dark: #2980b9;
+    --secondary-color: #2c3e50;
+    --danger-color: #e74c3c;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --info-color: #17a2b8;
+    --light-gray: #f5f7fa;
+    --medium-gray: #e0e0e0;
+    --dark-gray: #333;
+    --white: #ffffff;
+    --topbar-height: 75px; /* Altura del topbar */
+}
+
+* {
+    box-sizing: border-box;
+    /* margin: 0; */
+    /* padding: 0; */
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna y legible */
+    line-height: 1.6; /* Mejor legibilidad */
+    color: var(--dark-gray); /* Color de texto principal */
+    background-color: var(--light-gray); 
+}
+
+/* .dashboard-container {
+    display: flex;
+    min-height: 100vh;
+} */

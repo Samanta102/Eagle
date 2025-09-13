@@ -5,41 +5,27 @@
     <title>@yield('title', 'Panel')</title>
 
     {{-- ◽Librerias (https)--}}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"> <!-- Iconos Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"> <!-- Versión minificada de Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"> <!-- Bootstrap CSS -->
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"> <!-- Flatpickr (calendario/selector de fechas) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css"> <!-- Tema azul para el calendario -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> <!-- Iconos de font-awesome -->
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"> <!-- Animaciones font-awesome --> --}}
-
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 
     {{-- ◽Archivos CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/sb-admin-2.min.css') }}"> <!-- Archivo CSS | SB Admin 2 -->
-    <link rel="stylesheet" href="{{ asset('css/SidebarAreaInterna.css') }}"> <!-- CSS personalizado del Sidebar -->
-    <link rel="stylesheet" href="{{ asset('css/TopbarAreaInterna.css') }}"> <!-- CSS personalizado del Topbar -->
-    <link rel="stylesheet" href="{{ asset('css/sidebar-patinetas.css') }}"> <!-- Archivo CSS personalizado -->
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> <!-- Archivo CSS principal -->
+    <link rel="stylesheet" href="{{ asset('css/topbar.css') }}"> <!-- Topbar CSS -->
 
     {{-- ◽Archivos que NO estan funcionando! --}}
-    {{-- <link rel="icon" href="asset('img/EL_User2.png')"> <!-- Ícono del sitio (favicon). --> --}}
-    {{-- <link href="asset('css/custom.css')" rel="stylesheet"> <!-- ❌Archivo CSS para los correos largos (Navbar:Dropdown) --> --}}
-    {{-- <link href="asset('style.css')" rel="stylesheet"> <!-- ❌Archivo CSS personalizado para el chat. --> --}}
-
-
+    {{-- NA --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('styles')
-
 </head>
-<body id="page-top">
-    <div id="wrapper">
-    @include('layouts.sidebar')
-        <div id="content-wrapper" class="d-flex flex-column">
-            @include('layouts.topbar')
-            <div id="content">
+
+<body id="page-top" style="margin:0; padding:0; background:#f5f7fa;">
+    <div style="display: flex; flex-direction: column; min-height: 100vh;">
+        @include('layouts.topbar')
+        <div style="display: flex; flex: 1; min-height: 0;">
+            <div style="height: 100vh;">
+                @include('layouts.sidebar')
+            </div>
+            <div style="flex: 1; padding-left: 250px; min-height: 0; padding-top: 56px;">
                 <main class="py-4">
                     <!-- Mensajes de error/éxito -->
                     @if(session('error'))
@@ -64,17 +50,10 @@
                     
                     @yield('content')
                 </main>
-                @include('layouts.footer')
+                {{-- @include('layouts.footer') --}}
             </div>
-            
         </div>
     </div>
-
     @stack('scripts')
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
-    {{-- Flatpickr JS Global --}}
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/es.js"></script>
 </body>
 </html>
