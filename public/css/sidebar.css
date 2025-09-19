@@ -1,8 +1,28 @@
+/* Responsive: Collapse sidebar and hide text on small screens */
+@media (max-width: 992px) {
+    .sidebar {
+        width: 80px;
+        overflow: hidden;
+    }
+
+    .main-content {
+        margin-left: -150px; /* Ajusta el margen izquierdo del contenido principal */
+        /* padding-left: auto;  */
+        padding-right: 25px;
+    }
+    .sidebar-header h2 span,
+    .menu-link span {
+        display: none;
+    }
+    .menu-link {
+        justify-content: center;
+    }
+}
 @import url('global-variables.css');
 
 /* Sidebar Styles */
 .sidebar { /* ✅ */
-    width: 230px; /* Ancho fijo para la sidebar */
+    width: auto; /* Ancho fijo para la sidebar en desktop */
     min-height: 100vh; /* Altura completa de la ventana */
     background-color: var(--secondary-color); 
     color: var(--white);

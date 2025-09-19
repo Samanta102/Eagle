@@ -8,24 +8,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 
     {{-- ◽Archivos CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> <!-- Archivo CSS principal -->
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> <!-- Archivo CSS personalizado -->
     <link rel="stylesheet" href="{{ asset('css/topbar.css') }}"> <!-- Topbar CSS -->
 
     {{-- ◽Archivos que NO estan funcionando! --}}
-    {{-- NA --}}
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @stack('styles')
-</head>
 
+</head>
 <body id="page-top" style="margin:0; padding:0; background:#f5f7fa;">
     <div style="display: flex; flex-direction: column; min-height: 100vh;">
         @include('layouts.topbar')
         <div style="display: flex; flex: 1; min-height: 0;">
-            <div style="height: 100vh;">
-                @include('layouts.sidebar')
-            </div>
-            <div style="flex: 1; padding-left: 250px; min-height: 0; padding-top: 56px;">
+            @include('layouts.sidebar')
+            <div style="flex: 1; padding-left: 250px; padding-top: 56px; min-height: 0;">
                 <main class="py-4">
                     <!-- Mensajes de error/éxito -->
                     @if(session('error'))
