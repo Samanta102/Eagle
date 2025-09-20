@@ -4,8 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Administrativo</title>
+
     <style>
-        :root {
+
+        /* Variables globales */
+        :root { /* ✅ */
             --primary-color: #3498db;
             --primary-dark: #2980b9;
             --secondary-color: #2c3e50;
@@ -19,26 +22,29 @@
             --white: #ffffff;
         }
 
-        * {
+        * { /* ✅ */
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        body {
+        body { /* ✅ */
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark-gray);
             background-color: var(--light-gray);
         }
 
-        .dashboard-container {
+        .dashboard-container { /* ✅ */
             display: flex;
             min-height: 100vh;
         }
 
+
+
+
         /* Sidebar */
-        .sidebar {
+        .sidebar { /* ✅ */
             width: 250px;
             background-color: var(--secondary-color);
             color: var(--white);
@@ -46,27 +52,27 @@
             transition: all 0.3s;
         }
 
-        .sidebar-header {
+        .sidebar-header { /* ✅ */
             padding: 0 20px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .sidebar-header h2 {
+        .sidebar-header h2 { /* ✅ */
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        .sidebar-menu {
+        .sidebar-menu { /* ✅ */
             list-style: none;
             padding: 20px 0;
         }
 
-        .menu-item {
+        .menu-item { /* ✅ */
             margin-bottom: 5px;
         }
 
-        .menu-link {
+        .menu-link { /* ✅ */
             display: flex;
             align-items: center;
             gap: 10px;
@@ -76,15 +82,18 @@
             transition: all 0.3s;
         }
 
-        .menu-link:hover, .menu-link.active {
+        .menu-link:hover, .menu-link.active { /* ✅ */
             background-color: rgba(255, 255, 255, 0.1);
             border-left: 4px solid var(--primary-color);
         }
 
-        .menu-link i {
+        .menu-link i { /* ✅ */
             width: 20px;
             text-align: center;
         }
+
+
+
 
         /* Main Content */
         .main-content {
@@ -106,11 +115,14 @@
             font-weight: 600;
         }
 
-        .user-info {
+        .user-info { /* ✅ */
             display: flex;
             align-items: center;
             gap: 10px;
         }
+
+
+
 
         /* Cards Grid */
         .cards-grid {
@@ -399,7 +411,7 @@
             <div class="header" style="display: flex; justify-content: space-between; align-items: center;">
                 <h1>Panel de Control</h1>
                 <div class="user-info" style="display: flex; align-items: center; gap: 15px;">
-                    <span>Administrador {{ session('usuario')->nombre_usuario }}</span>
+                    <span>Administrador {{ session('usuario')->nombre_usuario ?? 'USUARIO POR DEFECTO!' }}</span>
                     <i class="fas fa-user-circle" style="font-size: 24px;"></i>
 
                     {{-- Botón de cerrar sesión --}}
