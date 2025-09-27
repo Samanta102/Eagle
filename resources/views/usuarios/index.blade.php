@@ -1,268 +1,11 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Usuarios</title>
+@extends('layouts.app')
+@section('title', 'Lista de Usuarios | Taller Mecánico')
+@section('content')
+
     <style>
-        :root {
-            --primary-color: #3498db;
-            --primary-dark: #2980b9;
-            --secondary-color: #2c3e50;
-            --danger-color: #e74c3c;
-            --danger-dark: #c0392b;
-            --warning-color: #f39c12;
-            --warning-dark: #d35400;
-            --success-color: #2ecc71;
-            --success-dark: #27ae60;
-            --info-color: #17a2b8;
-            --light-gray: #f5f7fa;
-            --medium-gray: #e0e0e0;
-            --dark-gray: #333;
-            --white: #ffffff;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--dark-gray);
-            background-color: var(--light-gray);
-            display: flex;
-            min-height: 100vh;
-        }
-
-        /* Sidebar Estático */
-        .sidebar {
-            width: 250px;
-            background-color: var(--secondary-color);
-            color: var(--white);
-            padding: 20px 0;
-            position: fixed;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
-        .sidebar-header {
-            padding: 0 20px 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-header h2 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 20px 0;
-        }
-
-        .menu-item {
-            margin-bottom: 5px;
-        }
-
-        .menu-link {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 20px;
-            color: var(--white);
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .menu-link:hover, .menu-link.active {
-            background-color: rgba(255, 255, 255, 0.1);
-            border-left: 4px solid var(--primary-color);
-        }
-
-        .menu-link i {
-            width: 20px;
-            text-align: center;
-        }
-
-        /* Main Content */
-        .main-content {
-            flex: 1;
-            margin-left: 250px; /* Igual al ancho del sidebar */
-            padding: 20px;
-        }
-
-        /* Estilos para la lista de usuarios */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 30px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        h1 {
-            color: var(--secondary-color);
-            font-weight: 600;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-size: 15px;
-        }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .alert {
-            padding: 15px;
-            margin-bottom: 25px;
-            border-radius: 6px;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .alert-success {
-            background-color: #d4edda;
-            color: #155724;
-            border-left: 4px solid #c3e6cb;
-        }
-
-        .alert-error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border-left: 4px solid #f5c6cb;
-        }
-
-        .table-container {
-            overflow-x: auto;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95em;
-            min-width: 600px;
-        }
-
-        thead tr {
-            background-color: var(--secondary-color);
-            color: var(--white);
-            text-align: left;
-        }
-
-        th, td {
-            padding: 15px 20px;
-            text-align: left;
-        }
-
-        th {
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85em;
-            letter-spacing: 0.5px;
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--medium-gray);
-            transition: all 0.2s ease;
-        }
-
-        tbody tr:nth-of-type(even) {
-            background-color: rgba(245, 247, 250, 0.5);
-        }
-
-        tbody tr:last-of-type {
-            border-bottom: 2px solid var(--secondary-color);
-        }
-
-        tbody tr:hover {
-            background-color: #e3f2fd;
-            transform: scale(1.005);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-
-        .actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .btn-edit {
-            background-color: var(--warning-color);
-            color: var(--white);
-        }
-
-        .btn-edit:hover {
-            background-color: var(--warning-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-delete {
-            background-color: var(--danger-color);
-            color: var(--white);
-        }
-
-        .btn-delete:hover {
-            background-color: var(--danger-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #6c757d;
-            font-style: italic;
-            background-color: var(--light-gray);
-            border-radius: 8px;
-            margin-top: 20px;
-        }
-
-        .empty-state i {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-        }
-
+        .table-padding { padding: 15px 20px !important; }
+        .table-padding-td { padding: 12px 18px !important; }
+        
         /* Badge para roles */
         .role-badge {
             display: inline-block;
@@ -276,260 +19,89 @@
 
         .role-admin {
             background-color: rgba(231, 76, 60, 0.2);
-            color: var(--danger-color);
+            color: #e74c3c;
         }
 
         .role-mecanico {
             background-color: rgba(52, 152, 219, 0.2);
-            color: var(--primary-color);
+            color: #3498db;
         }
 
         .role-cliente {
             background-color: rgba(46, 204, 113, 0.2);
-            color: var(--success-color);
-        }
-
-        /* Responsive */
-        @media (max-width: 992px) {
-            .sidebar {
-                width: 80px;
-                overflow: hidden;
-            }
-            
-            .sidebar-header h2 span, 
-            .menu-link span {
-                display: none;
-            }
-            
-            .menu-link {
-                justify-content: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 100%;
-                height: auto;
-                position: relative;
-            }
-            
-            .main-content {
-                margin-left: 0;
-            }
-            
-            .sidebar-menu {
-                display: flex;
-                overflow-x: auto;
-                padding: 10px 0;
-            }
-            
-            .menu-item {
-                margin-bottom: 0;
-                margin-right: 5px;
-            }
-            
-            .menu-link {
-                padding: 10px 15px;
-                border-radius: 4px;
-                border-left: none;
-            }
-            
-            .menu-link:hover, .menu-link.active {
-                border-left: none;
-                background-color: rgba(255, 255, 255, 0.2);
-            }
-            
-            .container {
-                padding: 20px;
-            }
-            
-            th, td {
-                padding: 12px 15px;
-            }
-            
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .actions {
-                flex-direction: column;
-                gap: 5px;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            .btn {
-                padding: 8px 12px;
-                font-size: 14px;
-            }
+            color: #2ecc71;
         }
     </style>
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-</head>
-<body>
-    <!-- Sidebar Estático -->
-    <aside class="sidebar">
-        <div class="sidebar-header">
-            <h2>
-                <i class="fas fa-tools"></i>
-                <span>Taller Mecánico</span>
-            </h2>
+
+    <div class="main-content">
+        <div style="width: 100%; max-width: 1200px; margin: 30px auto 20px auto; display: flex; justify-content: space-between; align-items: center;">
+            <h1 style="color: #2c3e50; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-users"></i> Lista de Usuarios
+            </h1>
+            <a href="{{ route('usuarios.create') }}" style="background: #3498db; color: #fff; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 500; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-plus"></i> Nuevo Usuario
+            </a>
         </div>
-        
-        <ul class="sidebar-menu">
-            <li class="menu-item">
-                <a href="{{ route('dashboard') }}" class="menu-link">
-                    <i class="fas fa-tachometer-alt"></i>
-                    <span>Dashboard</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="#" class="menu-link active">
-                    <i class="fas fa-users"></i>
-                    <span>Usuarios</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="fas fa-motorcycle"></i>
-                    <span>Patinetas</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="#" class="menu-link">
-                    <i class="fas fa-calendar-check"></i>
-                    <span>Citas</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="{{ route('diagnosticos.index') }}" class="menu-link">
-                    <i class="fas fa-file-medical"></i>
-                    <span>Diagnósticos</span>
-                </a>
-            </li>
 
-            <li class="menu-item">
-                <a href="{{ route('ordenes_servicio.index') }}" class="menu-link">
-                    <i class="fas fa-clipboard-list"></i>
-                    <span>Órdenes de Servicio</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="{{ route('mantenimientos.index') }}" class="menu-link">
-                    <i class="fas fa-tools"></i>
-                    <span>Mantenimientos</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="{{ route('productos.index') }}" class="menu-link">
-                    <i class="fas fa-boxes"></i>
-                    <span>Productos</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="{{ route('formas_pago.index') }}" class="menu-link">
-                    <i class="fas fa-credit-card"></i>
-                    <span>Tipos de Pago</span>
-                </a>
-            </li>
-            
-            <li class="menu-item">
-                <a href="{{ route('tipos-iva.index') }}" class="menu-link">
-                    <i class="fas fa-percentage"></i>
-                    <span>Tipos de IVA</span>
-                </a>
-            </li>
-        </ul>
-    </aside>
-
-    <!-- Main Content con la lista de usuarios -->
-    <main class="main-content">
-        <div class="container">
-            <div class="header">
-                <h1><i class="fas fa-users"></i> Lista de Usuarios</h1>
-                <a href="{{ route('usuarios.create') }}" class="btn btn-primary">
-                    <i class="fas fa-plus"></i> Nuevo Usuario
-                </a>
+        @if(session('success'))
+            <div style="background: #d4edda; color: #155724; border-left: 4px solid #c3e6cb; padding: 12px 20px; border-radius: 6px; margin-bottom: 15px; min-width: 400px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-check-circle"></i> {{ session('success') }}
             </div>
+        @endif
 
-            {{-- Mensajes de éxito o error --}}
-            @if(session('success'))
-                <div class="alert alert-success">
-                    <i class="fas fa-check-circle"></i> {{ session('success') }}
-                </div>
-            @endif
+        @if(session('error'))
+            <div style="background: #f8d7da; color: #721c24; border-left: 4px solid #f5c6cb; padding: 12px 20px; border-radius: 6px; margin-bottom: 15px; min-width: 400px; display: flex; align-items: center; gap: 10px;">
+                <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
+            </div>
+        @endif
 
-            @if(session('error'))
-                <div class="alert alert-error">
-                    <i class="fas fa-exclamation-circle"></i> {{ session('error') }}
-                </div>
-            @endif
+        @if($usuarios->count() > 0)
+            <table style="margin: 0 auto; border-collapse: collapse; min-width: 1200px; background: #fff; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.07); overflow: hidden;">
+                <thead>
+                    <tr style="background: #2c3e50; color: #ffffff;">
+                        <th class="table-padding">Nombre</th>
+                        <th class="table-padding">Apellido</th>
+                        <th class="table-padding">Rol</th>
+                        <th class="table-padding">Correo</th>
+                        <th class="table-padding">Teléfono</th>
+                        <th class="table-padding">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($usuarios as $usuario)
+                    <tr style="border-bottom: 1px solid #e0e0e0;">
+                        <td class="table-padding-td">{{ $usuario->nombre_usuario }}</td>
+                        <td class="table-padding-td">{{ $usuario->apellido }}</td>
+                        <td class="table-padding-td">
+                            <span class="role-badge role-{{ strtolower($usuario->rol->nombre) }}">
+                                {{ $usuario->rol->nombre }}
+                            </span>
+                        </td>
+                        <td class="table-padding-td">{{ $usuario->correo }}</td>
+                        <td class="table-padding-td">{{ $usuario->telefono }}</td>
+                        <td class="table-padding-td">
+                            <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" style="background: #f39c12; color: #fff; text-decoration: none; padding: 7px 14px; border-radius: 4px; font-size: 0.95em; margin-right: 6px; display: inline-block;">
+                                <i class="fas fa-edit"></i> Editar
+                            </a>
+                            <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" style="background: #e74c3c; color: #fff; border: none; padding: 7px 14px; border-radius: 4px; font-size: 0.95em; cursor: pointer;" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
+                                    <i class="fas fa-trash-alt"></i> Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <div style="text-align: center; padding: 40px; color: #6c757d; font-style: italic; background: #f5f7fa; border-radius: 8px; margin-top: 20px; min-width: 400px;">
+                <i class="fas fa-user-times" style="font-size:2em;margin-bottom:15px;color:#3498db;"></i>
+                <h3>No hay usuarios registrados</h3>
+                <p>Comience agregando un nuevo usuario</p>
+            </div>
+        @endif
+    </div>
 
-            @if($usuarios->count() > 0)
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>Rol</th>
-                                <th>Correo</th>
-                                <th>Teléfono</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($usuarios as $usuario)
-                                <tr>
-                                    <td>{{ $usuario->nombre_usuario }}</td>
-                                    <td>{{ $usuario->apellido }}</td>
-                                    <td>
-                                        <span class="role-badge role-{{ strtolower($usuario->rol->nombre) }}">
-                                            {{ $usuario->rol->nombre }}
-                                        </span>
-                                    </td>
-                                    <td>{{ $usuario->correo }}</td>
-                                    <td>{{ $usuario->telefono }}</td>
-                                    <td>
-                                        <div class="actions">
-                                            <a href="{{ route('usuarios.edit', $usuario->id_usuario) }}" class="btn btn-edit">
-                                                <i class="fas fa-edit"></i> Editar
-                                            </a>
-                                            <form action="{{ route('usuarios.destroy', $usuario->id_usuario) }}" method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-delete" onclick="return confirm('¿Seguro que deseas eliminar este usuario?')">
-                                                    <i class="fas fa-trash-alt"></i> Eliminar
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            @else
-                <div class="empty-state">
-                    <i class="fas fa-user-times"></i>
-                    <h3>No hay usuarios registrados</h3>
-                    <p>Comience agregando un nuevo usuario</p>
-                </div>
-            @endif
-        </div>
-    </main>
-</body>
-</html>
+@endsection
