@@ -10,7 +10,7 @@
     </div>
 
     <div class="user-info">
-        <span>Administrador {{ session('usuario')->nombre_usuario ?? 'MORRO' }}</span>
+        <span>Administrador {{ session('usuario')->nombre_usuario ?? 'N/A' }}</span>
         <i class="fas fa-user-circle"></i>
         <form action="{{ route('logout') }}" method="GET" onsubmit="return confirm('¿Cerrar sesión?')">
             <button type="submit">
