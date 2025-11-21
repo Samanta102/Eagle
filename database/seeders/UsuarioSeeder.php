@@ -5,20 +5,29 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class UsuarioSeeder extends Seeder
-{
-    public function run(): void
-    {
+class UsuarioSeeder extends Seeder {
+    public function run(): void {
+        
         DB::table('usuarios')->insert([
             [
-                'id_rol' => 2,
+                'id_rol' => 1,
                 'nombre_usuario' => 'Samanta',
                 'apellido' => 'Parrado',
-                'doc_identidad' => '123456789',
+                'doc_identidad' => '888',
                 'direccion' => 'Calle 1 #23-45',
                 'telefono' => '3001234567',
                 'correo' => 'samanta@example.com',
-                'contrasena' => bcrypt('123456')
+                'contrasena' => bcrypt('Sam8901')
+            ],
+            [
+                'id_rol' => 1,
+                'nombre_usuario' => 'Dylan',
+                'apellido' => 'Gonzalez',
+                'doc_identidad' => '777',
+                'direccion' => 'Calle 1 #23-45',
+                'telefono' => '3001234567',
+                'correo' => 'dylan.gonzalez@example.com',
+                'contrasena' => bcrypt('Dylan4567')
             ],
             [
                 'id_rol' => 1,
@@ -28,17 +37,17 @@ class UsuarioSeeder extends Seeder
                 'direccion' => 'Carrera 7 #12-34',
                 'telefono' => '3012345678',
                 'correo' => 'richi@example.com',
-                'contrasena' => bcrypt('Rich1234')
+                'contrasena' => bcrypt('Rich1594')
             ],
             [
-                'id_rol' => 3,
+                'id_rol' => 2,
                 'nombre_usuario' => 'Laura',
                 'apellido' => 'Martínez',
                 'doc_identidad' => '555666777',
                 'direccion' => 'Av 3 #22-10',
                 'telefono' => '3023456789',
                 'correo' => 'laura@example.com',
-                'contrasena' => bcrypt('123456')
+                'contrasena' => bcrypt('Lau6524')
             ],
             [
                 'id_rol' => 3,
@@ -48,7 +57,7 @@ class UsuarioSeeder extends Seeder
                 'direccion' => 'Calle 9 #10-11',
                 'telefono' => '3034567890',
                 'correo' => 'andres@example.com',
-                'contrasena' => bcrypt('123456')
+                'contrasena' => bcrypt('And8456')
             ]
         ]);
     }
