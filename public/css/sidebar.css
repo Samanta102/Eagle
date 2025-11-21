@@ -18,8 +18,6 @@
         justify-content: center;
     }
 }
-@import url('global-variables.css');
-
 /* Sidebar Styles */
 .sidebar { /* ✅ */
     width: auto; /* Ancho fijo para la sidebar en desktop */
