@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome -->
 
     {{-- ◽Archivos CSS --}}
-    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> <!-- Archivo CSS personalizado -->
-    <link rel="stylesheet" href="{{ asset('css/topbar.css') }}"> <!-- Topbar CSS -->
+    <link rel="stylesheet" href="{{ asset('css/global-variables.css') }}"> <!-- Variables globales (cargar primero) -->
+    <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}"> <!-- Sidebar CSS personalizado -->
+    <link rel="stylesheet" href="{{ asset('css/topbar.css') }}"> <!-- Topbar CSS personalizado -->
+    <link rel="stylesheet" href="{{ asset('css/formulariostyles.css') }}"> <!-- Stylos CSS para formularios (create/edit) -->
 
     {{-- ◽Archivos que NO estan funcionando! --}}
 
