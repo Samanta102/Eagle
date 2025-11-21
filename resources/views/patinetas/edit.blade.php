@@ -1,43 +1,74 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Editar Patineta</title>
-</head>
-<body>
+@extends('layouts.app')
 
-    <h1>Editar Patineta</h1>
+@section('title', 'Editar Patineta')
+
+@section('content')
+<div class="container">
+    <div class="header">
+        <h1><i class="fas fa-motorcycle"></i> Editar Patineta</h1>
+        <a href="{{ route('patinetas.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i> Volver
+        </a>
+    </div>
+
+    @if($errors->any())
+        <div class="alert-error">
+            <div><i class="fas fa-exclamation-circle"></i> Por favor corrige los siguientes errores:</div>
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('patinetas.update', $patineta->id_patineta) }}" method="POST">
         @csrf
         @method('PUT')
 
-        <label for="id_usuario">Usuario:</label>
-        <select name="id_usuario" id="id_usuario" required>
-            @foreach($usuarios as $usuario)
-                <option value="{{ $usuario->id_usuario }}" {{ $usuario->id_usuario == $patineta->id_usuario ? 'selected' : '' }}>
-                    {{ $usuario->nombre_usuario }}
-                </option>
-            @endforeach
-        </select><br><br>
+        <div class="form-group">
+            <label for="id_usuario" class="form-label">Usuario</label>
+            <select name="id_usuario" id="id_usuario" class="form-select" required>
+                @foreach($usuarios as $usuario)
+                    <option value="{{ $usuario->id_usuario }}" {{ old('id_usuario', $patineta->id_usuario) == $usuario->id_usuario ? 'selected' : '' }}>
+                        {{ $usuario->nombre_usuario }} {{ $usuario->apellido }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
 
-        <label for="numero_serial">Número Serial:</label>
-        <input type="text" name="numero_serial" id="numero_serial" value="{{ $patineta->numero_serial }}" required><br><br>
+        <div class="form-group">
+            <label for="numero_serial" class="form-label">Número Serial</label>
+            <input type="text" name="numero_serial" id="numero_serial" class="form-control" 
+                   value="{{ old('numero_serial', $patineta->numero_serial) }}" required>
+        </div>
 
-        <label for="marca">Marca:</label>
-        <input type="text" name="marca" id="marca" value="{{ $patineta->marca }}" maxlength="20" required><br><br>
+        <div class="form-group">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" name="marca" id="marca" class="form-control" 
+                   value="{{ old('marca', $patineta->marca) }}" maxlength="20" required>
+        </div>
 
-        <label for="color">Color:</label>
-        <input type="text" name="color" id="color" value="{{ $patineta->color }}" maxlength="20" required><br><br>
+        <div class="form-group">
+            <label for="color" class="form-label">Color</label>
+            <input type="text" name="color" id="color" class="form-control" 
+                   value="{{ old('color', $patineta->color) }}" maxlength="20" required>
+        </div>
 
-        <label for="fecha_registro">Fecha de Registro:</label>
-        <input type="date" name="fecha_registro" id="fecha_registro" value="{{ $patineta->fecha_registro }}" required><br><br>
+        <div class="form-group">
+            <label for="fecha_registro" class="form-label">Fecha de Registro</label>
+            <input type="date" name="fecha_registro" id="fecha_registro" class="form-control" 
+                   value="{{ old('fecha_registro', $patineta->fecha_registro) }}" required>
+        </div>
 
-        <button type="submit">Actualizar</button>
+        <div class="form-actions">
+            <button type="reset" class="btn btn-secondary">
+                <i class="fas fa-undo"></i> Restaurar
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save"></i> Actualizar Patineta
+            </button>
+        </div>
     </form>
-
-    <br>
-    <a href="{{ route('patinetas.index') }}">Volver al listado</a>
-
-</body>
-</html>
+</div>
+@endsection
